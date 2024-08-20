@@ -1,0 +1,31 @@
+.home {
+    text-align: center;
+    padding: 50px;
+    background-color: #f4f4f4;
+  }
+  
+  .home h1 {
+    color: #003366;
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  
+  .home p {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 30px;
+  }
+  
+  .read-more {
+    background-color: #003366;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .read-more:hover {
+    background-color: #002244;
+  }
+  

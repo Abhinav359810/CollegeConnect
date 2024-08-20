@@ -1,0 +1,22 @@
+.contact {
+    padding: 50px;
+    background-color: #f4f4f4;
+    text-align: center;
+  }
+  
+  .contact h2 {
+    color: #003366;
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+  
+  .contact p {
+    font-size: 18px;
+    color: #333;
+  }
+  
+  footer p {
+    margin-top: 50px;
+    color: #666;
+  }
+  
