@@ -6,7 +6,7 @@ import Home from './components/Home';
 import About from './components/About';
 import Contact from './components/Contact';
 import Login from './components/Login';
-import SignUp from './components/SignUp'; // Import the SignUp component
+import SignUp from './components/SignUp'; // Add SignUp import
 import Dashboard from './components/Dashboard'; // Example protected component
 import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';

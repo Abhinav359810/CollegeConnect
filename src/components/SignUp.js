@@ -1,59 +1,52 @@
 // src/components/SignUp.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { registerUser } from '../services/authService'; // Ensure this path is correct
+import { registerUser } from '../services/authService';
 
 function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('student'); // Default role or could be set via UI
+  const [role, setRole] = useState('student'); // Default role
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSignUp = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      await registerUser(email, password, role);
-      alert('Account created successfully');
-      navigate('/login'); // Redirect to login page after successful sign-up
+      await registerUser(email, password, role); // Ensure the user is registered
+      navigate('/dashboard'); // Redirect to dashboard
     } catch (error) {
-      alert('Error creating account: ' + error.message);
+      alert('Error signing up: ' + error.message);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="signup-container">
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSignUp}>
-        <div className="input-group">
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="input-group">
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div className="input-group">
-          <select value={role} onChange={(e) => setRole(e.target.value)}>
-            <option value="student">Student</option>
-            <option value="teacher">Teacher</option>
-          </select>
-        </div>
+    <div className="sign-up-container">
+      <form onSubmit={handleSubmit}>
+        <h1>Sign Up</h1>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <select value={role} onChange={(e) => setRole(e.target.value)} required>
+          <option value="student">Student</option>
+          <option value="teacher">Teacher</option>
+        </select>
         <button type="submit" disabled={loading}>
-          {loading ? 'Creating Account...' : 'Sign Up'}
+          {loading ? 'Signing Up...' : 'Sign Up'}
         </button>
       </form>
     </div>

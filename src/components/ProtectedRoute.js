@@ -1,36 +1,20 @@
-import React from 'react';
+// src/components/ProtectedRoute.js
+import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase';
-import { getUserRole } from '../services/userService'; // Import the userService for role checking
 
-function ProtectedRoute({ children, requiredRole }) {
+function ProtectedRoute({ children }) {
   const [user, loading] = useAuthState(auth);
-  const [role, setRole] = React.useState(null);
+  const [redirect, setRedirect] = useState(false);
 
-  // Fetch the user role from Firestore
-  React.useEffect(() => {
-    const fetchUserRole = async () => {
-      if (user) {
-        try {
-          const fetchedRole = await getUserRole(user.uid);
-          setRole(fetchedRole);
-        } catch (error) {
-          console.error('Error fetching user role:', error);
-        }
-      }
-    };
+  useEffect(() => {
+    if (!loading && !user) {
+      setRedirect(true);
+    }
+  }, [loading, user]);
 
-    fetchUserRole();
-  }, [user]);
-
-  if (loading) {
-    // Show a loading indicator while checking authentication and role
-    return <div>Loading...</div>;
-  }
-
-  if (!user || (requiredRole && role !== requiredRole)) {
-    // Redirect to login if not authenticated or if role doesn't match
+  if (redirect) {
     return <Navigate to="/login" />;
   }
 

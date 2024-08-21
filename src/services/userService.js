@@ -1,30 +1,31 @@
 // src/services/userService.js
 import { doc, setDoc, getDoc } from 'firebase/firestore';
-import { firestore } from '../firebase'; // Import firestore
+import { firestore } from '../firebase'; // Import Firestore instance
 
 // Function to set a user's role in Firestore
 export const setUserRole = async (userId, role) => {
   try {
-    // Reference to the user's profile document in Firestore
-    const userRef = doc(firestore, `users/${userId}/profile`);
+    // Create a reference to the user's document in the 'users' collection
+    const userRef = doc(firestore, `users/${userId}`);
     
-    // Set the role in the user's profile document
+    // Set the role field in the user's document
     await setDoc(userRef, { role });
     
     console.log('User role set successfully');
   } catch (error) {
-    // Log error if something goes wrong
+    // Log the error if setting the user role fails
     console.error('Error setting user role:', error);
+    throw error; // Re-throw the error to be handled by the caller
   }
 };
 
 // Function to get a user's role from Firestore
 export const getUserRole = async (userId) => {
   try {
-    // Reference to the user's profile document in Firestore
-    const userRef = doc(firestore, `users/${userId}/profile`);
+    // Create a reference to the user's document in the 'users' collection
+    const userRef = doc(firestore, `users/${userId}`);
     
-    // Get the document snapshot
+    // Fetch the document snapshot from Firestore
     const docSnap = await getDoc(userRef);
 
     if (docSnap.exists()) {
@@ -35,8 +36,8 @@ export const getUserRole = async (userId) => {
       throw new Error('No such document!');
     }
   } catch (error) {
-    // Log error if something goes wrong
+    // Log the error if getting the user role fails
     console.error('Error getting user role:', error);
-    throw error; // Re-throw error to be handled by the caller
+    throw error; // Re-throw the error to be handled by the caller
   }
 };
