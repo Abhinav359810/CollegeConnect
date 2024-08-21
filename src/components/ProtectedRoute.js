@@ -18,6 +18,10 @@ function ProtectedRoute({ children }) {
     return <Navigate to="/login" />;
   }
 
+  if (loading) {
+    return <p>Loading...</p>; // Optionally show a loading state
+  }
+
   return children;
 }
 
