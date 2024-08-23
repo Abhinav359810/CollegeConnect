@@ -19,11 +19,15 @@ import Fees from './pages/Student/Fees';
 import NewsEvents from './pages/Student/NewsEvents';
 import './assets/CSS/Dashboard.css';
 
+// Teacher Dashboard Components
+import TeacherDashboard from './pages/Teacher/Dashboard';
+
 function App() {
   return (
     <Router>
       <Layout>
         <Routes>
+          {/* Public Routes */}
           <Route path="/" element={<Homepage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -37,16 +41,33 @@ function App() {
               <div className="dashboard">
                 <Sidebar />
                 <div className="dashboard-content">
-                  <Navbar /> {/* This is the Navbar specific to the student dashboard */}
+                  <Navbar />
                   <Routes>
                     <Route path="home" element={<Home />} />
                     <Route path="classes" element={<Classes />} />
                     <Route path="students" element={<Students />} />
                     <Route path="teachers" element={<Teachers />} />
-                    <Route path="/exam" element={<Exams />} />
-                    {/* <Route path="/exam" element={<Exams studentId={currentStudentId} />} /> */}
+                    <Route path="exams" element={<Exams />} />
                     <Route path="fees" element={<Fees />} />
                     <Route path="news-events" element={<NewsEvents />} />
+                  </Routes>
+                </div>
+              </div>
+            }
+          />
+
+          {/* Teacher Dashboard Layout */}
+          <Route
+            path="/teacher-dashboard/*"
+            element={
+              <div className="dashboard">
+                
+                <div className="dashboard-content">
+
+                  <Routes>
+                    <Route path="/" element={<TeacherDashboard />} />
+
+                    {/* Add more teacher-specific routes here */}
                   </Routes>
                 </div>
               </div>
