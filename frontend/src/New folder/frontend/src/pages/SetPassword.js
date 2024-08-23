@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Form, Button, Container, Row, Col, Card } from 'react-bootstrap';
-import { getAuth, updatePassword, updateEmail } from 'firebase/auth';
 import { db } from '../firebaseConfig';
 import { doc, updateDoc } from 'firebase/firestore';
 
@@ -13,7 +12,6 @@ function SetPassword() {
   const location = useLocation();
   const { email } = location.state;  // Get the email from the previous page
   const collegeId = location.pathname.split('/')[2];  // Extract the college ID from the URL
-  const auth = getAuth();
 
   const handleSetPassword = async (e) => {
     e.preventDefault();
@@ -24,26 +22,10 @@ function SetPassword() {
     }
 
     try {
-      // Get the currently logged-in user (admin who registered)
-      const user = auth.currentUser;
-
-      if (!user) {
-        setMessage('User not authenticated. Please log in again.');
-        return;
-      }
-
-      // Update the user's password in Firebase Authentication
-      await updatePassword(user, password);
-
-      // Optionally update the user's email in Firebase Authentication
-      if (user.email !== email) {
-        await updateEmail(user, email);
-      }
-
-      // Update the college document in Firestore with the new email, if needed
+      // Update the college document with the password
       const collegeRef = doc(db, 'colleges', collegeId);
       await updateDoc(collegeRef, {
-        adminEmail: email,
+        password,  // You should hash this password before storing it
       });
 
       // Redirect to login or dashboard after setting the password

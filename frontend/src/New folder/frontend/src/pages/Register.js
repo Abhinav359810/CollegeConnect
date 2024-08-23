@@ -3,13 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { Form, Button, Container, Row, Col, Card } from 'react-bootstrap';
 import { db } from '../firebaseConfig';
 import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 function Register() {
   const [collegeName, setCollegeName] = useState('');
   const [adminName, setAdminName] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState(''); // Add password state
   const [mobileNumber, setMobileNumber] = useState('');
   const [address, setAddress] = useState('');
   const [message, setMessage] = useState('');
@@ -19,7 +17,7 @@ function Register() {
     e.preventDefault();
 
     try {
-      // Query Firestore to check if the college name already exists
+      // Query the Firestore to check if the college name already exists
       const q = query(collection(db, 'colleges'), where('collegeName', '==', collegeName));
       const querySnapshot = await getDocs(q);
 
@@ -37,14 +35,6 @@ function Register() {
         address,
       });
 
-      // Create user in Firebase Authentication
-      const auth = getAuth();
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-
-      // Update the user's display name in Firebase Authentication
-      await updateProfile(user, { displayName: adminName });
-
       // Add the admin to the faculty collection associated with the college
       await addDoc(collection(db, 'colleges', collegeDocRef.id, 'faculty'), {
         name: adminName,
@@ -52,7 +42,7 @@ function Register() {
         role: 'admin',  // Assign the admin role to this user
       });
 
-      // Pass the document ID to the next page or show a success message
+      // Pass the document ID to the next page
       navigate(`/set-password/${collegeDocRef.id}`, { state: { email } });
     } catch (error) {
       setMessage(`Error: ${error.message}`);
@@ -97,17 +87,6 @@ function Register() {
                     placeholder="Enter email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </Form.Group>
-
-                <Form.Group controlId="formPassword" className="mb-3">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    placeholder="Enter password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
                     required
                   />
                 </Form.Group>

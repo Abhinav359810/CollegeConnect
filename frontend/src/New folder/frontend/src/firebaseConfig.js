@@ -1,13 +1,10 @@
 // src/firebaseConfig.js
 import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import { getDatabase } from 'firebase/database';
 
-const admin = require('firebase-admin');
-const dotenv = require('dotenv');
-
-dotenv.config();
-
-const serviceAccount = {
+const firebaseConfig = {
     apiKey: "AIzaSyA-o7DlcgB7omRzUpzY-Mjjś5hOOoLh-oYc",
     authDomain: "collegeconnect-9b7dd.firebaseapp.com",
     projectId: "collegeconnect-9b7dd",
@@ -17,12 +14,8 @@ const serviceAccount = {
     measurementId: "G-5YRNSQRLBL"
 };
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://collegeconnect-9b7dd.firebaseio.com"
-  });
-  
-  // Firestore Database instance
-  const db = admin.firestore();
-  
-  module.exports = { admin, db };
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+export { auth, db};

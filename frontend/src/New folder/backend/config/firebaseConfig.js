@@ -19,7 +19,7 @@ const serviceAccount = {
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://collegeconnect-9b7dd.firebaseio.com"
+    databaseURL: "https://your-project-id.firebaseio.com"
   });
   
   // Firestore Database instance

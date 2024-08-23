@@ -7,8 +7,6 @@ const api = axios.create({
   baseURL: API_BASE_URL,
 });
 
-
-
 export const registerUser = (userData) => api.post('/auth/register', userData);
 export const loginUser = (credentials) => api.post('/auth/login', credentials);
 export const getColleges = () => api.get('/college');

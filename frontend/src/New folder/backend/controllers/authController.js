@@ -1,11 +1,6 @@
 // backend/controllers/authController.js
+const { getAuth } = require('firebase-admin/auth');
 const { db } = require('../config/firebaseAdminConfig');
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from './firebaseConfig'; // Import your firebaseConfig
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 
 // Register User (Teacher or Student)
 const registerUser = async (req, res) => {
@@ -30,18 +25,22 @@ const registerUser = async (req, res) => {
   }
 };
 
-
 // Login User
-const loginUser = async (email, password) => {
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+
   try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    console.log('User signed in:', userCredential.user);
-    return userCredential;
+    // Verify user credentials via Firebase Auth
+    const userRecord = await getAuth().getUserByEmail(email);
+
+    // Get user role from Firestore
+    const userDoc = await db.collection('users').doc(userRecord.uid).get();
+    const userData = userDoc.data();
+
+    res.status(200).json({ message: 'Login successful', role: userData.role });
   } catch (error) {
-    console.error('Error signing in:', error);
-    throw error;
+    res.status(400).json({ error: 'Invalid credentials' });
   }
 };
-
 
 module.exports = { registerUser, loginUser };

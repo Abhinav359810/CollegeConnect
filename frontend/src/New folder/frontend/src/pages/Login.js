@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Form, Button, Container, Row, Col, Card } from 'react-bootstrap';
 import { db } from '../firebaseConfig';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'; // Import Firebase Auth
+import { loginUser } from '../services/api';
 import '../assets/CSS/Login.css';  // Custom CSS file for styling
 
 function Login() {
@@ -16,15 +16,9 @@ function Login() {
 
   useEffect(() => {
     const fetchColleges = async () => {
-      try {
-        const collegeSnapshot = await getDocs(collection(db, 'colleges'));
-        const collegeList = collegeSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        console.log('Fetched Colleges:', collegeList); // Log fetched colleges
-        setColleges(collegeList);
-      } catch (error) {
-        console.error('Error fetching colleges:', error);
-        setMessage('Error fetching colleges.');
-      }
+      const collegeSnapshot = await getDocs(collection(db, 'colleges'));
+      const collegeList = collegeSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setColleges(collegeList);
     };
     fetchColleges();
   }, []);
@@ -38,10 +32,8 @@ function Login() {
     }
 
     try {
-      const auth = getAuth();
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-      console.log('User signed in:', user);
+      // Authenticate the user (this could include checking password validity, etc.)
+      const response = await loginUser({ email, password });
 
       // Query the database to find the user's role in the selected college's faculty collection
       const facultyQuery = query(
@@ -55,8 +47,6 @@ function Login() {
         const userData = userDoc.data();
         const facultyRole = userData.role;
 
-        console.log('Faculty role:', facultyRole); // Log the faculty role
-
         // Store user role and other necessary details in localStorage or context API
         localStorage.setItem('userRole', facultyRole);
         localStorage.setItem('userEmail', email);
@@ -67,8 +57,6 @@ function Login() {
           navigate('/teacher-dashboard');
         } else if (facultyRole === 'admin') {
           navigate('/admin-dashboard');
-        } else if(facultyRole === 'student') {
-          navigate('/student-dashboard');
         } else {
           setMessage('Invalid role. Please contact support.');
         }
@@ -76,7 +64,6 @@ function Login() {
         setMessage('Invalid credentials or role not found in the selected college.');
       }
     } catch (error) {
-      console.error('Error during login:', error); // Log any errors that occur
       setMessage('Invalid credentials. Please try again.');
     }
   };

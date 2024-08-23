@@ -1,0 +1,78 @@
+/* src/assets/CSS/Dashboard.css */
+.dashboard {
+  padding: 20px;
+  background-color: #ecf0f1;
+  flex-grow: 1;
+}
+
+.dashboard-top {
+  margin-bottom: 20px;
+}
+
+.dashboard-top h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.quick-links {
+  display: flex;
+  gap: 10px;
+}
+
+.quick-links a {
+  text-decoration: none;
+  background-color: #3498db;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+
+.quick-links a:hover {
+  background-color: #2980b9;
+}
+
+.dashboard-columns {
+  display: flex;
+  gap: 20px;
+}
+
+.dashboard-left,
+.dashboard-right {
+  flex: 1;
+}
+
+.card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.card h2 {
+  margin-bottom: 15px;
+}
+
+.card ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.card ul li {
+  margin-bottom: 10px;
+}
+
+.dashboard-bottom {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.calendar,
+.events {
+  flex: 1;
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
