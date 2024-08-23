@@ -1,0 +1,136 @@
+/* Add this to your App.css or any global CSS file */
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.min-vh-100 {
+  min-height: 100vh;
+}
+
+footer {
+  margin-top: auto;
+  padding: 10px 0;
+  text-align: center;
+  background-color: #343a40;
+  color: white;
+}
+
+.navbar {
+  z-index: 1000;
+}
+
+.content {
+  flex: 1;
+}
+
+/* App.css */
+
+/* General Styles */
+body, html {
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.homepage {
+  background-color: #f8f9fa;
+}
+
+/* Hero Section */
+.hero-section {
+  background-image: url('hero-bg.jpg'); /* Add a background image here */
+  background-size: cover;
+  background-position: center;
+  padding: 100px 0;
+  color: white;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.hero-button {
+  padding: 10px 30px;
+  font-size: 1.2rem;
+}
+
+/* Section Titles */
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #0056b3;
+  border-bottom: 3px solid #0056b3;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+
+/* Announcement Card */
+.announcement-card {
+  border: none;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.announcement-card .card-title {
+  font-size: 1.5rem;
+  color: #343a40;
+}
+
+.announcement-card .card-text {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Quick Links Card */
+.quick-links-card {
+  border: none;
+  border-radius: 10px;
+  background-color: #f8f9fa;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.quick-links-card .card-link {
+  font-size: 1.2rem;
+  color: #0056b3;
+  text-decoration: none;
+  margin-bottom: 10px;
+}
+
+.quick-links-card .card-link:hover {
+  text-decoration: underline;
+}
+
+/* src/assets/CSS/App.css */
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+

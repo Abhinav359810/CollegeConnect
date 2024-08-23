@@ -1,0 +1,29 @@
+/* src/assets/CSS/Footer.css */
+
+.footer {
+    background-color: #343a40; /* Dark background to match the sidebar */
+    color: #ffffff; /* White text color */
+    padding: 20px 0; /* Padding for vertical spacing */
+    text-align: center; /* Center the text */
+    position: relative;
+    width: auto; /* Ensure the footer takes up the full width minus the sidebar */
+    bottom: 0; /* Stick the footer to the bottom of the page */
+    z-index:1002; /* Keep the footer above other content */
+  }
+  
+  .footer a {
+    color: #ffffff; /* White color for the icons */
+    margin: 0 10px; /* Space between the icons */
+    font-size: 1.2rem; /* Increase the size of the icons */
+    transition: color 0.3s ease-in-out; /* Smooth transition for hover effect */
+  }
+  
+  .footer a:hover {
+    color: #007bff; /* Change color on hover to a lighter blue */
+  }
+  
+  .footer p {
+    margin: 0; /* Remove margin for the paragraph */
+    font-size: 1rem; /* Font size for the text */
+  }
+  
