@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Button, Container, Row, Col, Card } from 'react-bootstrap';
 import { db } from '../firebaseConfig';
-import { collection, getDocs, addDoc, doc, setDoc } from 'firebase/firestore';
+import { collection, getDocs, setDoc, doc } from 'firebase/firestore';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import '../assets/CSS/SignUp.css';  // Custom CSS file for styling
 
@@ -50,9 +50,17 @@ function SignUp() {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Store the user's details in a Pending collection with a subcollection based on role
-      const pendingRef = doc(collection(db, 'Pending'), selectedCollege);
-      await setDoc(doc(pendingRef, role), {
+      // Logging user information to debug
+      console.log('User created:', user);
+
+      // Reference to the specific college document in the Pending collection
+      const collegeDocRef = doc(db, 'Pending', selectedCollege);
+
+      // Reference to the subcollection within the college document
+      const roleCollectionRef = collection(collegeDocRef, role);
+
+      // Add the user's details to the subcollection (student or teacher)
+      await setDoc(doc(roleCollectionRef), {
         uid: user.uid,
         name: name,
         email: email,
@@ -67,7 +75,7 @@ function SignUp() {
       navigate('/student-dashboard'); // Redirect to student dashboard after successful sign-up
     } catch (error) {
       console.error('Error during sign-up:', error);
-      setMessage('Error during sign-up. Please try again.');
+      setMessage(`Error during sign-up: ${error.message}`);
     }
   };
 

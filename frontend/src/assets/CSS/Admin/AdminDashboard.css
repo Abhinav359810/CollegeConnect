@@ -1,0 +1,36 @@
+.admin-dashboard {
+  display: flex;
+}
+
+.dashboard-content {
+  margin-left: 240px; /* Should match the sidebar width */
+  padding: 20px;
+  width: calc(100% - 240px); /* Adjust based on the sidebar width */
+}
+
+.stats-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.stats-icon {
+  font-size: 2rem;
+  color: #6c757d;
+}
+
+.stats-info h5 {
+  margin: 0;
+  font-size: 1rem;
+  color: #6c757d;
+}
+
+.stats-info h2 {
+  margin: 0;
+  font-size: 2rem;
+  color: #343a40;
+}

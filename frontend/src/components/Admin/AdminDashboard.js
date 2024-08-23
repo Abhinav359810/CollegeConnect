@@ -1,19 +1,16 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import Sidebar from './Sidebar';
-import DashboardHeader from './DashboardHeader';
+import AdminSidebar from './AdminSidebar';
 import StatsCard from './StatsCard';
 import UserTable from './UserTable';
-import Chart from './Chart';
 import { FaUsers, FaBook, FaEnvelope } from 'react-icons/fa';
-import '../../assets/CSS/AdminDashboard.css';
+import '../../assets/CSS/Admin/AdminDashboard.css';
 
 function AdminDashboard() {
   return (
     <div className="admin-dashboard d-flex">
-      <Sidebar />
+      <AdminSidebar />
       <Container fluid className="dashboard-content">
-        <DashboardHeader />
 
         {/* Dashboard Stats Cards */}
         <Row className="mt-4">
@@ -34,7 +31,6 @@ function AdminDashboard() {
             <UserTable />
           </Col>
           <Col md={4}>
-            <Chart />
           </Col>
         </Row>
       </Container>

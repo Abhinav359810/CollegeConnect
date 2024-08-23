@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import '../../assets/CSS/StatsCard.css';
+import '../../assets/CSS/Admin/StatsCard.css';
 
 function StatsCard({ title, value, icon }) {
   return (

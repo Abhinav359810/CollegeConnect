@@ -1,31 +1,33 @@
-// src/components/Sidebar.js
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import '../../assets/CSS/Student/Sidebar.css';
+import { Link } from 'react-router-dom';
+import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Home, School, People, Assessment, Event } from '@mui/icons-material';
 
-function Sidebar() {
+const Sidebar = () => {
   return (
-    <div className="sidebar d-flex flex-column p-3 bg-dark">
-      <NavLink to="/student-dashboard" className="menu-item">
-        Home
-      </NavLink>
-      <NavLink to="/student-dashboard/students" className="menu-item">
-        Students
-      </NavLink>
-      <NavLink to="/student-dashboard/teachers" className="menu-item">
-        Teachers
-      </NavLink>
-      <NavLink to="/student-dashboard/exam" className="menu-item">
-        Exam
-      </NavLink>
-      <NavLink to="/student-dashboard/fees" className="menu-item">
-        Fees
-      </NavLink>
-      <NavLink to="/student-dashboard/library" className="menu-item">
-        Library
-      </NavLink>
-    </div>
+    <List>
+      <ListItem button component={Link} to="/">
+        <ListItemIcon><Home /></ListItemIcon>
+        <ListItemText primary="Dashboard" />
+      </ListItem>
+      <ListItem button component={Link} to="/students">
+        <ListItemIcon><People /></ListItemIcon>
+        <ListItemText primary="Students" />
+      </ListItem>
+      <ListItem button component={Link} to="/faculty">
+        <ListItemIcon><School /></ListItemIcon>
+        <ListItemText primary="Faculty" />
+      </ListItem>
+      <ListItem button component={Link} to="/courses">
+        <ListItemIcon><Assessment /></ListItemIcon>
+        <ListItemText primary="Courses" />
+      </ListItem>
+      <ListItem button component={Link} to="/events">
+        <ListItemIcon><Event /></ListItemIcon>
+        <ListItemText primary="Events" />
+      </ListItem>
+    </List>
   );
-}
+};
 
 export default Sidebar;
