@@ -1,10 +1,10 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import Sidebar from '../components/Sidebar';
-import DashboardHeader from '../components/DashboardHeader';
-import StatsCard from '../components/StatsCard';
-import UserTable from '../components/UserTable';
-import Chart from '../components/Chart';
+import Sidebar from './Sidebar';
+import DashboardHeader from './DashboardHeader';
+import StatsCard from './StatsCard';
+import UserTable from './UserTable';
+import Chart from './Chart';
 import { FaUsers, FaBook, FaEnvelope } from 'react-icons/fa';
 import '../../assets/CSS/AdminDashboard.css';
 

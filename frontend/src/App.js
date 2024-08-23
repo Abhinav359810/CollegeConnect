@@ -22,6 +22,9 @@ import './assets/CSS/Dashboard.css';
 // Teacher Dashboard Components
 import TeacherDashboard from './pages/Teacher/Dashboard';
 
+//Admin Dashboard
+import AdminDashboard from './components/Admin/AdminDashboard';
+
 function App() {
   return (
     <Router>
@@ -33,6 +36,22 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/set-password/:id" element={<SetPassword />} />
           <Route path="/contact" element={<Contact />} />
+
+          {/* Admin Dashboard Layout */}
+          <Route
+            path="/admin-dashboard/*"
+            element={
+              <div className="dashboard">
+                <Sidebar />
+                <div className="dashboard-content">
+                  <Navbar />
+                  <Routes>
+                    <Route path="/" element={<AdminDashboard />} />
+                  </Routes>
+                </div>
+              </div>
+            }
+          />
 
           {/* Student Dashboard Layout */}
           <Route

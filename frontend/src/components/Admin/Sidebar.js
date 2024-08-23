@@ -1,7 +1,7 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
 import { FaUsers, FaBook, FaChartLine, FaCogs, FaEnvelope } from 'react-icons/fa';
-import '../../assets/CSS/Sidebar.css';
+import '../../assets/CSS/Student/Sidebar.css';
 
 function Sidebar() {
   return (
