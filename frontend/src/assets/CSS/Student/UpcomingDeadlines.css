@@ -1,0 +1,31 @@
+/* src/assets/CSS/UpcomingDeadlines.css */
+.upcoming-deadlines {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .deadline-list {
+    margin-top: 15px;
+  }
+  
+  .deadline-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+  }
+  
+  .deadline-item p {
+    margin: 0;
+    font-size: 16px;
+  }
+  
+  .deadline-item span {
+    font-size: 14px;
+    color: #6c757d;
+  }
+  

@@ -1,0 +1,33 @@
+/* src/pages/Login.css */
+
+/* General Card Styling */
+.login-card {
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  /* Role Selection Section */
+  .role-selection {
+    padding: 10px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  .role-button {
+    width: 45%;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  
+  /* Form Field Styling */
+  .form-control {
+    border-radius: 8px;
+    padding: 10px;
+  }
+  
+  button[type="submit"] {
+    font-size: 18px;
+    padding: 10px;
+  }
+  
