@@ -1,15 +1,29 @@
 import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import '../assets/CSS/Homepage.css';  // Import the custom CSS
 
 function Homepage() {
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  const handleRegisterClick = () => {
+    navigate('/register'); // Navigate to the /register route
+  };
+
   return (
     <div className="homepage">
       <div className="hero-section">
         <Container className="text-center">
           <h1 className="hero-title">Welcome to CampusConnect</h1>
           <p className="hero-subtitle">Connecting Students, Faculty, and Administration</p>
-          <Button variant="primary" size="lg" className="hero-button">Get Started</Button>
+          <Button 
+            variant="primary" 
+            size="lg" 
+            className="hero-button" 
+            onClick={handleRegisterClick} // Set up the click handler
+          >
+            Register Your College
+          </Button>
         </Container>
       </div>
       

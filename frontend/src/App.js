@@ -5,11 +5,12 @@ import Homepage from './pages/Homepage';
 import Login from './pages/Login';
 import Contact from './pages/Contact';
 import Register from './pages/Register';
+import SignUp from './pages/SignUp';
 import SetPassword from './pages/SetPassword';
 
 // Student Dashboard Components
 import Sidebar from './components/Student/Sidebar';
-import Navbar from './components/Student/Navbar';
+import Navigationbar from './components/Student/Navbar';
 import Home from './pages/Student/Dashboard';
 import Classes from './pages/Student/Classes';
 import Students from './pages/Student/Students';
@@ -36,7 +37,8 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/set-password/:id" element={<SetPassword />} />
           <Route path="/contact" element={<Contact />} />
-
+          <Route path="/sign-up" element={<SignUp />} />
+          
           {/* Admin Dashboard Layout */}
           <Route
             path="/admin-dashboard/*"
@@ -44,7 +46,7 @@ function App() {
               <div className="dashboard">
                 <Sidebar />
                 <div className="dashboard-content">
-                  <Navbar />
+                  <Navigationbar />
                   <Routes>
                     <Route path="/" element={<AdminDashboard />} />
                   </Routes>
@@ -60,7 +62,7 @@ function App() {
               <div className="dashboard">
                 <Sidebar />
                 <div className="dashboard-content">
-                  <Navbar />
+                  <Navigationbar />
                   <Routes>
                     <Route path="home" element={<Home />} />
                     <Route path="classes" element={<Classes />} />

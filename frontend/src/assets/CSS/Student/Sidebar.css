@@ -13,25 +13,44 @@
   z-index: 1000; /* Keep sidebar above other content */
 }
 
-.menu-item {
+.sidebar .nav-link {
   height: 60px; /* Set a fixed height for each menu item */
   display: flex; /* Use flexbox to center content vertically */
   align-items: center; /* Vertically center the text within the menu item */
   padding: 0 30px; /* Horizontal padding */
-  margin-bottom: 5px;
-  font-size: 1.6rem; /* Larger font size */
-  border-radius: 3px;
+  margin-bottom: 10px; /* Add space between items */
+  font-size: 1.2rem; /* Slightly reduce font size for better fit */
+  border-radius: 5px; /* Slightly rounded corners */
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
   color: #ffffff;
   text-decoration: none; /* Remove underline from links */
 }
 
-.menu-item:hover {
+.sidebar .nav-link:hover {
   background-color: #495057;
   color: #ffffff;
 }
 
-.menu-item.active {
-  background-color: #495057; /* Highlight the active menu item */
+.sidebar .nav-link.active {
+  background-color: #007bff; /* Highlight the active menu item with a blue color */
   color: #ffffff;
+}
+
+.sidebar .nav-link .fa-icon {
+  margin-right: 10px; /* Add space between icon and text */
+  font-size: 1.5rem; /* Increase icon size */
+}
+
+.settings-icon {
+  position: absolute;
+  bottom: 20px; /* Position the settings icon at the bottom */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  color: #ffffff;
+  transition: color 0.3s ease-in-out;
+}
+
+.settings-icon:hover {
+  color: #007bff; /* Blue color on hover */
 }

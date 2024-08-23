@@ -1,0 +1,105 @@
+/* src/assets/CSS/SignUp.css */
+
+/* General Styling for the Sign-Up Page */
+.sign-up-card {
+    background-color: #ffffff; /* White background for the card */
+    border-radius: 12px; /* Softer rounded corners */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Deeper shadow for a modern look */
+    padding: 30px; /* Extra padding inside the card */
+    max-width: 500px; /* Restrict max width for a more focused form */
+    margin: auto; /* Center the card */
+  }
+  
+  h3 {
+    font-size: 2rem; /* Larger font size for the title */
+    font-weight: 700; /* Bolder title */
+    color: #2c3e50; /* Darker color for the title */
+    margin-bottom: 25px; /* Space below the title */
+    text-align: center; /* Center the title */
+  }
+  
+  .form-control {
+    border-radius: 30px; /* More rounded corners for input fields */
+    border: 1px solid #ced4da; /* Light grey border */
+    padding: 0.75rem 1.5rem; /* Extra padding for a comfortable input */
+    font-size: 1.1rem; /* Slightly larger font size */
+    background-color: #f8f9fa; /* Light background for input fields */
+    transition: all 0.3s ease; /* Smooth transition for focus effects */
+  }
+  
+  .form-control:focus {
+    border-color: #007bff; /* Blue border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Soft blue glow on focus */
+    background-color: #ffffff; /* White background on focus */
+  }
+  
+  .form-label {
+    font-size: 1rem; /* Standard font size for labels */
+    font-weight: 600; /* Make labels slightly bolder */
+    color: #495057; /* Dark grey color */
+    margin-bottom: 10px; /* Space between label and input */
+  }
+  
+  button {
+    padding: 0.75rem 1.5rem; /* Larger padding for buttons */
+    font-size: 1.2rem; /* Larger font size for buttons */
+    border-radius: 30px; /* Rounded corners for buttons */
+    font-weight: 600; /* Bold button text */
+    transition: all 0.3s ease-in-out; /* Smooth transitions for buttons */
+  }
+  
+  button[type="submit"] {
+    background-color: #007bff; /* Blue background for the submit button */
+    color: #ffffff; /* White text color */
+    border: none; /* Remove border */
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3); /* Add shadow for depth */
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    box-shadow: 0 8px 20px rgba(0, 86, 179, 0.4); /* Enhance shadow on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .text-danger {
+    color: #dc3545; /* Bootstrap's standard danger color for error messages */
+    font-weight: 600;
+  }
+  
+  .mt-5 {
+    margin-top: 3rem !important;
+  }
+  
+  .mb-4 {
+    margin-bottom: 1.5rem !important;
+  }
+  
+  .form-group {
+    margin-bottom: 20px; /* Space between form groups */
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .sign-up-card {
+      padding: 20px;
+    }
+  
+    h3 {
+      font-size: 1.7rem;
+    }
+  
+    .form-control {
+      font-size: 1rem;
+      padding: 0.65rem 1.2rem;
+    }
+  
+    button {
+      font-size: 1.1rem;
+      padding: 0.65rem 1.2rem;
+    }
+  }
+  

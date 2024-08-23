@@ -26,7 +26,7 @@ function CustomNavbar() {
           </Nav>
           <Nav>
             <Button variant="outline-light" href="/login" className="me-3">Login</Button>
-            <Button variant="outline-success" href="/register">Sign Up</Button>
+            <Button variant="outline-success" href="/sign-up">Sign Up</Button>
           </Nav>
         </Navbar.Collapse>
       </Container>
