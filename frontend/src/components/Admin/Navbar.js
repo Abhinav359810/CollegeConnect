@@ -1,55 +1,151 @@
-  import React from 'react';
-  import { Navbar, Nav, Form, FormControl, Button, NavDropdown, Container } from 'react-bootstrap';
-  import { useNavigate } from 'react-router-dom';
-  import profilePic from '../../assets/img/IMG-20240723-WA00071.jpg'  // Placeholder for the profile picture
-  import '../../assets/CSS/Admin/AdminNavbar.css';  // Import the custom CSS
+import React from 'react';
+import { AppBar, Toolbar, IconButton, Typography, InputBase, Box, Menu, MenuItem, Avatar } from '@mui/material';
+import { styled, alpha } from '@mui/material/styles';
+import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
+import { useNavigate } from 'react-router-dom';
 
-  function Navigationbar() {
-    const navigate = useNavigate();
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginLeft: 0,
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(1),
+    width: 'auto',
+  },
+}));
 
-    const handleProfileClick = () => {
-      navigate('/admin-dashboard/profile');
-    };
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
 
-    const handleSettingsClick = () => {
-      navigate('/admin-dashboard/settings');
-    };
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '12ch',
+      '&:focus': {
+        width: '20ch',
+      },
+    },
+  },
+}));
 
-    return (
-      <Navbar bg="dark" variant="dark" expand="lg">
-        <Container>
-          <Navbar.Brand href="/">CampusConnect</Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbarScroll" />
-          <Navbar.Collapse id="navbarScroll">
-            <Nav className="me-auto my-2 my-lg-0" navbarScroll>
-              <Nav.Link href="/dashboard">Dashboard</Nav.Link>
-              <Nav.Link href="/about">About</Nav.Link>
-            </Nav>
-            <Form className="d-flex">
-              <FormControl
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search" 
-              />
-              <Button variant="outline-success">Search</Button>
-            </Form>
-            <Nav>
-              <NavDropdown
-                title={<img src={profilePic} alt="Profile" className="rounded-circle" width="40" height="40" />}
-                id="navbarScrollingDropdown"
-                align="end"
-              >
-                <NavDropdown.Item onClick={handleProfileClick}>Profile</NavDropdown.Item>
-                <NavDropdown.Item onClick={handleSettingsClick}>Settings</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    );
-  }
+const AdminNavbar = ({ toggleSidebar }) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const navigate = useNavigate();
+  const isMenuOpen = Boolean(anchorEl);
 
-  export default Navigationbar;
+  const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleSettings = () => {
+    handleMenuClose();
+    navigate('/admin-dashboard/settings');
+  };
+
+  const handleProfile = () => {
+    handleMenuClose();
+    navigate('/admin-dashboard/profile');
+  };
+
+  const handleLogout = () => {
+    handleMenuClose();
+    navigate('/logout');
+  };
+
+  const menuId = 'primary-search-account-menu';
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <MenuItem onClick={handleProfile}>Profile</MenuItem>
+      <MenuItem onClick={handleSettings}>Settings</MenuItem>
+      <MenuItem onClick={handleLogout}>Logout</MenuItem>
+    </Menu>
+  );
+
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <Toolbar>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            onClick={toggleSidebar}
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ display: { xs: 'none', sm: 'block' } }}
+          >
+            Admin Dashboard
+          </Typography>
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </Search>
+          <Box sx={{ flexGrow: 1 }} />
+          <Box>
+            <IconButton
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+              <Avatar alt="Profile Picture" src="/static/images/avatar/1.jpg" />
+            </IconButton>
+          </Box>
+        </Toolbar>
+      </AppBar>
+      {renderMenu}
+    </Box>
+  );
+};
+
+export default AdminNavbar;

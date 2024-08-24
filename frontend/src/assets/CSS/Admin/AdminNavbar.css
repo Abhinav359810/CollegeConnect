@@ -1,17 +1,74 @@
+/* Example CSS to improve navigation appearance */
+
 .navbar {
-    background-color: #343a40;
-    color: #fff;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-  }
-  
-  .navbar-brand, .navbar-nav .nav-link {
-    color: #fff;
-  }
-  
-  .content {
-    padding-top: 60px; /* Adjust based on your navbar height */
-  }
-  
+  position: sticky; /* or use fixed if you want it to stay fixed even when scrolling */
+  top: 0;
+  z-index: 1000; /* Ensure it is above other content */
+  width: 100%;
+  background-color: #ffffff; /* Adjust to your preferred color */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add some shadow for depth */
+  padding: 0.5rem 1rem; /* Adjust padding for desired spacing */
+}
+
+.navbar ul {
+  list-style: none; /* Remove default list styling */
+  margin: 0;
+  padding: 0;
+  display: flex; /* Make the list items inline */
+  justify-content: space-between; /* Spread out the links */
+  align-items: center; /* Vertically center the items */
+}
+
+.navbar li {
+  margin: 0;
+  padding: 0;
+  display: inline-block; /* Ensure each list item behaves like an inline-block */
+}
+
+.navbar a {
+  text-decoration: none; /* Remove default link underline */
+  padding: 0.5rem 1rem; /* Add padding for spacing */
+  color: #333; /* Adjust color as needed */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Add smooth transitions */
+}
+
+.navbar a:hover {
+  background-color: #f0f0f0; /* Background color on hover */
+  color: #007bff; /* Text color on hover */
+}
+
+/* Example SidebarLinkGroup Styles */
+.sidebar {
+  width: 250px; /* Set the width of your sidebar */
+  height: 100vh; /* Make it take up the full height of the viewport */
+  position: fixed; /* Fix the sidebar on the left */
+  top: 0;
+  left: 0;
+  background-color: #2c3e50; /* Background color of the sidebar */
+  padding: 1rem; /* Add padding for spacing */
+  overflow-y: auto; /* Make it scrollable if content overflows */
+  z-index: 999; /* Ensure it is below the navbar but above content */
+}
+
+.sidebar ul {
+  list-style: none; /* Remove list styles */
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  margin-bottom: 0.5rem; /* Add spacing between list items */
+}
+
+.sidebar a {
+  color: #ecf0f1; /* Light text color */
+  text-decoration: none; /* Remove underline */
+  display: block; /* Make links block-level elements */
+  padding: 0.5rem 1rem; /* Add padding for spacing */
+  border-radius: 4px; /* Add slight border radius */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.sidebar a:hover {
+  background-color: #34495e; /* Darker background on hover */
+}

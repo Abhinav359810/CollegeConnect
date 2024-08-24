@@ -19,6 +19,7 @@ import TeacherDashboard from './pages/Teacher/Dashboard';
 
 //Admin Dashboard
 import AdminDashboard from './components/Admin/AdminDashboard';
+import AdminSidebar from './components/Admin/AdminSidebar';
 import Navigationbar from './components/Admin/Navbar';
 import { Nav, Navbar } from 'react-bootstrap';
 
@@ -40,7 +41,7 @@ function App() {
           path="/admin-dashboard/*"
           element={
             <div style={{ display: 'flex' }}>
-              <Sidebar />
+              <AdminSidebar />
               <Navigationbar /> 
               <div style={{ marginLeft: '240px', padding: '20px', width: '100%' }}>
                 <Routes>
