@@ -1,15 +1,13 @@
 import React from 'react';
 import { Grid, Paper, Typography, Box } from '@mui/material';
-import StudentNotifications from '../../components/Student/StudentNotifications'; // Import your notifications component
+import Sidebar from '../../components/Student/Sidebar'; // Import Sidebar component
 
 const Dashboard = () => {
   return (
     <Grid container>
       {/* Sidebar Section */}
       <Grid item xs={12} md={3} lg={2}>
-        <Box sx={{ height: '100vh', backgroundColor: '#f5f5f5', padding: '20px' }}>
-  
-        </Box>
+        <Sidebar />
       </Grid>
 
       {/* Main Content Section */}
@@ -46,11 +44,6 @@ const Dashboard = () => {
               </Paper>
             </Grid>
           </Grid>
-
-          {/* Notifications Section */}
-          <Box mt={4}>
-            <StudentNotifications />
-          </Box>
         </Box>
       </Grid>
     </Grid>
