@@ -38,7 +38,7 @@ function About() {
   };
 
   return (
-    <Container className="mt-5">
+    <Container className="mt-4">
       <Row className="mb-4">
         <Col>
           <h1 className="text-center">About CampusConnect</h1>
