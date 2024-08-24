@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, List, ListItem, ListItemText } from '@mui/material';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { db } from '../../firebaseConfig';
+import { db } from '../../firebaseConfig';  // Make sure your Firebase configuration is correctly imported
 
 const TeacherNotifications = () => {
   const [notifications, setNotifications] = useState([]);

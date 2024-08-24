@@ -20,6 +20,8 @@ import Events from './pages/Student/Events';
 // Teacher Dashboard Components
 import TeacherDashboard from './pages/Teacher/Dashboard';
 import TeacherNavbar from './components/Teacher/Navigation'
+import TeacherSidebar from './components/Teacher/Sidebar';
+import TeacherNotifications from './components/Teacher/TeacherNotifications';
 
 // Admin Dashboard Components
 import AdminDashboard from './components/Admin/AdminDashboard';
@@ -78,12 +80,11 @@ function App() {
           element={
             <div className="dashboard">
               <TeacherNavbar />
-              <Sidebar />
               <div className="dashboard-content">
                 <Routes>
                   <Route path="/" element={<TeacherDashboard />} />
                   <Route path="events" element={<Events />} />
-
+                  <Route path="notifications" element={<TeacherNotifications />} />
                   {/* Add more teacher-specific routes here */}
                 </Routes>
               </div>

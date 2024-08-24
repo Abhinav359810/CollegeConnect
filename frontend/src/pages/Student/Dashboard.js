@@ -1,14 +1,15 @@
+// src/pages/Student/Dashboard.js
 import React from 'react';
 import { Grid, Paper, Typography, Box } from '@mui/material';
+import Sidebar from '../../components/Student/Sidebar'; // Import the Sidebar component
+import StudentNavbar from '../../components/Student/StudentNavbar'; // Import the Navbar component
+
 const Dashboard = () => {
   return (
-    <Grid container>
-      {/* Sidebar Section */}
-      <Grid item xs={12} md={3} lg={2}>
-      </Grid>
-
-      {/* Main Content Section */}
-      <Grid item xs={12} md={9} lg={10}>
+    <Box sx={{ display: 'flex', height: '100vh' }}>
+      <Sidebar /> {/* Include the Sidebar component */}
+      <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <StudentNavbar /> {/* Include the StudentNavbar component */}
         <Box sx={{ p: 3 }}>
           <Typography variant="h4" gutterBottom>
             Student Dashboard
@@ -42,8 +43,8 @@ const Dashboard = () => {
             </Grid>
           </Grid>
         </Box>
-      </Grid>
-    </Grid>
+      </Box>
+    </Box>
   );
 };
 

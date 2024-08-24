@@ -1,3 +1,4 @@
+// src/components/Teacher/Navigation.js
 import React from 'react';
 import { AppBar, Toolbar, IconButton, Typography, Box, Menu, MenuItem, Avatar, Tooltip } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -32,7 +33,7 @@ const TeacherNavbar = ({ toggleSidebar }) => {
         <Box>
           <Tooltip title="Account settings">
             <IconButton onClick={handleMenuOpen} sx={{ p: 0 }}>
-              <Avatar alt="Admin" src="/static/images/avatar/1.jpg" />
+              <Avatar alt="Teacher" src="/static/images/avatar/1.jpg" />
             </IconButton>
           </Tooltip>
           <Menu
