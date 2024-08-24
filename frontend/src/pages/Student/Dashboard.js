@@ -48,9 +48,7 @@ const Dashboard = () => {
           </Grid>
 
           {/* Notifications Section */}
-          <Box mt={4}>
-            <StudentNotifications />
-          </Box>
+         
         </Box>
       </Grid>
     </Grid>

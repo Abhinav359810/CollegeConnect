@@ -15,6 +15,7 @@ import Dashboard from './pages/Student/Dashboard';
 import StudentList from './components/Student/StudentList';
 import StudentNavbar from './components/Student/StudentNavbar';
 import StudentNotifications from './components/Student/StudentNotifications';
+import Events from './pages/Student/Events';
 
 // Teacher Dashboard Components
 import TeacherDashboard from './pages/Teacher/Dashboard';
@@ -81,6 +82,8 @@ function App() {
               <div className="dashboard-content">
                 <Routes>
                   <Route path="/" element={<TeacherDashboard />} />
+                  <Route path="events" element={<Events />} />
+
                   {/* Add more teacher-specific routes here */}
                 </Routes>
               </div>
@@ -99,6 +102,7 @@ function App() {
                   <Route path="/" element={<Dashboard />} />
                   <Route path="students" element={<StudentList />} />
                   <Route path="Notifications" element={<StudentNotifications />} />
+                  <Route path="events" element={<Events />} />
                   
                   {/* Add more student-specific routes here */}
                 </Routes>
