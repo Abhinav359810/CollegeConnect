@@ -8,7 +8,7 @@ import Register from './pages/Register';
 import SignUp from './pages/SignUp';
 import SetPassword from './pages/SetPassword';
 import CustomNavbar from './components/Navbar';
-import about from './pages/About';
+import About from './pages/About';
 
 // Student Dashboard Components
 import Sidebar from './components/Student/Sidebar';
@@ -23,7 +23,6 @@ import AdminDashboard from './components/Admin/AdminDashboard';
 import AdminSidebar from './components/Admin/AdminSidebar';
 import Navigationbar from './components/Admin/Navbar';
 import { Nav, Navbar } from 'react-bootstrap';
-import About from './pages/About';
 
 function App() {
   return (
