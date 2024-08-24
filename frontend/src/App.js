@@ -14,6 +14,7 @@ import Sidebar from './components/Student/Sidebar';
 import Dashboard from './pages/Student/Dashboard';
 import StudentList from './components/Student/StudentList';
 import StudentNavbar from './components/Student/Navbar';
+import StudentNotifications from './components/Student/StudentNotifications';
 
 // Teacher Dashboard Components
 import TeacherDashboard from './pages/Teacher/Dashboard';
@@ -94,6 +95,8 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Dashboard />} />
                   <Route path="students" element={<StudentList />} />
+                  <Route path="Notifications" element={<StudentNotifications />} />
+                  
                   {/* Add more student-specific routes here */}
                 </Routes>
               </div>

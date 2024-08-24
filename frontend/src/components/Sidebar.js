@@ -1,7 +1,7 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
 import { FaHome, FaUserGraduate, FaChalkboardTeacher, FaUserTie, FaCalendarAlt, FaBook, FaToolbox } from 'react-icons/fa';
-import '../../assets/CSS/AdminDashboard.css';
+//import '../../assets/CSS/AdminDashboard.css';
 
 function Sidebar() {
   return (
