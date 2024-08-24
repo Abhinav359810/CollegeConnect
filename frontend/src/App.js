@@ -23,12 +23,13 @@ import TeacherNavbar from './components/Teacher/Navigation'
 // Admin Dashboard Components
 import AdminDashboard from './components/Admin/AdminDashboard';
 import AdminSidebar from './components/Admin/AdminSidebar';
-import Navigationbar from './components/Admin/Navbar';
 import AdminNotifications from './components/Admin/AdminNotifications';
 import AdminMessaging from './components/Admin/AdminMessaging';
 import UserProfile from './components/Admin/userProfiles';
 import UserManagement from './components/Admin/UserManagement';
+import ExamManagement from './pages/Admin/ExamManagement';
 import { Nav, Navbar } from 'react-bootstrap';
+import AdminNavbar from './components/Admin/AdminNavbar';
 
 function App() {
   return (
@@ -51,7 +52,7 @@ function App() {
           element={
             <div style={{ display: 'flex' }}>
               <AdminSidebar />
-              <Navigationbar /> 
+              <AdminNavbar /> 
               <div style={{ marginLeft: '240px', padding: '20px', width: '100%' }}>
                 <Routes>
                   <Route path="/" element={<AdminDashboard />} />
@@ -59,6 +60,7 @@ function App() {
                   <Route path="notifications" element={<AdminNotifications />} />
                   <Route path="messaging" element={<AdminMessaging />} />
                   <Route path="/user-management" element={<UserManagement/>} />
+                  <Route path="/examination-management" element={<ExamManagement />} />
                   <Route path="/user-profile/:userId/:collegeId/:role" element={<UserProfile />} /> {/* Add this route */}
                   {/* Add more routes for other admin functionalities */}
                 </Routes>
@@ -83,7 +85,6 @@ function App() {
             </div>
           }
         />
-
         {/* Student Dashboard Layout */}
         <Route
           path="/student-dashboard/*"

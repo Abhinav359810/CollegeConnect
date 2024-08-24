@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import CustomNavbar from '../Navbar';
 import Footer from '../Footer';
-import AdminNavbar from '../Admin/Navbar';
+import AdminNavbar from '../Admin/AdminNavbar';
 
 function Layout({ children }) {
   const location = useLocation();
