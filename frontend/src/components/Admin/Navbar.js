@@ -2,7 +2,7 @@ import React from 'react';
 import { AppBar, Toolbar, IconButton, Typography, Box, Menu, MenuItem, Avatar, Tooltip } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
-const AdminNavbar = ({ toggleSidebar }) => {
+const StudentNavbar = ({ toggleSidebar }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleMenuOpen = (event) => {
@@ -26,13 +26,13 @@ const AdminNavbar = ({ toggleSidebar }) => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" noWrap component="div">
-          Admin Dashboard
+          Student Dashboard
         </Typography>
         <Box sx={{ flexGrow: 1 }} />
         <Box>
           <Tooltip title="Account settings">
             <IconButton onClick={handleMenuOpen} sx={{ p: 0 }}>
-              <Avatar alt="Admin" src="/static/images/avatar/1.jpg" />
+              <Avatar alt="Student" src="/static/images/avatar/1.jpg" />
             </IconButton>
           </Tooltip>
           <Menu
@@ -51,4 +51,4 @@ const AdminNavbar = ({ toggleSidebar }) => {
   );
 };
 
-export default AdminNavbar;
+export default StudentNavbar;

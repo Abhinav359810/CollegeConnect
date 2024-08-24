@@ -13,6 +13,7 @@ import About from './pages/About';
 import Sidebar from './components/Student/Sidebar';
 import Dashboard from './pages/Student/Dashboard';
 import StudentList from './components/Student/StudentList';
+import StudentNavbar from './components/Student/Navbar';
 
 // Teacher Dashboard Components
 import TeacherDashboard from './pages/Teacher/Dashboard';
@@ -42,36 +43,19 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/about" element={<About />} />
 
-          {/* Admin Dashboard Layout */}
-          <Route
-            path="/admin-dashboard/*"
-            element={
-              <div style={{ display: 'flex' }}>
-                <AdminSidebar />
-                <div style={{ flex: 1, marginLeft: '240px', padding: '20px' }}>
-                  <Navigationbar />
-                  <Routes>
-                    <Route path="/" element={<AdminDashboard />} />
-                    <Route path="students" element={<StudentList />} />
-                    <Route path="notifications" element={<AdminNotifications />} />
-                    <Route path="messaging" element={<AdminMessaging />} />
-                    {/* Add more routes for other admin functionalities */}
-                  </Routes>
-                </div>
-              </div>
-            }
-          />
+          
         {/* Admin Dashboard Layout */}
         <Route
           path="/admin-dashboard/*"
           element={
             <div style={{ display: 'flex' }}>
-              <AdminSidebar />
               <Navigationbar /> 
               <div style={{ marginLeft: '240px', padding: '20px', width: '100%' }}>
                 <Routes>
                   <Route path="/" element={<AdminDashboard />} />
                   <Route path="/students" element={<StudentList />} />
+                  <Route path="notifications" element={<AdminNotifications />} />
+                  <Route path="messaging" element={<AdminMessaging />} />
                   <Route path="/user-management" element={<UserManagement/>} />
                   <Route path="/user-profile/:userId/:collegeId/:role" element={<UserProfile />} /> {/* Add this route */}
                   {/* Add more routes for other admin functionalities */}
@@ -104,7 +88,7 @@ function App() {
           element={
             <div className="dashboard">
               <Sidebar />
-              <Navigationbar/>
+              <StudentNavbar/>
               <div className="dashboard-content">
                 <Routes>
                   <Route path="/" element={<Dashboard />} />

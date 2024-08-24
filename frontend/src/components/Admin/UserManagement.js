@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Grid,
   Paper,
@@ -12,88 +12,34 @@ import {
   Container,
 } from '@mui/material';
 import { Edit, Delete, Visibility, PersonAdd } from '@mui/icons-material';
-import { collection, getDocs, deleteDoc, doc, updateDoc, addDoc } from 'firebase/firestore';
-import { getAuth, deleteUser, createUserWithEmailAndPassword } from 'firebase/auth';
-import { db } from '../../firebaseConfig';
 
 const UserManagement = () => {
-  const [users, setUsers] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openAddAdminModal, setOpenAddAdminModal] = useState(false);
   const [newAdminEmail, setNewAdminEmail] = useState('');
   const [newAdminPassword, setNewAdminPassword] = useState('');
-  const [adminCollegeId, setAdminCollegeId] = useState('admin_college_id'); // Placeholder for admin's college ID
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        if (!adminCollegeId) return;
-
-        const collegeRef = doc(db, 'colleges', adminCollegeId);
-        const studentsRef = collection(collegeRef, 'students');
-        const teachersRef = collection(collegeRef, 'teachers');
-
-        const studentsSnapshot = await getDocs(studentsRef);
-        const teachersSnapshot = await getDocs(teachersRef);
-
-        const usersData = [];
-
-        studentsSnapshot.forEach((doc) => {
-          usersData.push({ id: doc.id, role: 'student', ...doc.data(), collegeId: adminCollegeId });
-        });
-
-        teachersSnapshot.forEach((doc) => {
-          usersData.push({ id: doc.id, role: 'teacher', ...doc.data(), collegeId: adminCollegeId });
-        });
-
-        setUsers(usersData);
-      } catch (error) {
-        console.error('Error fetching users:', error);
-      }
-    };
-
-    fetchUsers();
-  }, [adminCollegeId]);
-
-  const handleDelete = async (user) => {
-    try {
-      const userDocRef = doc(db, 'colleges', user.collegeId, user.role === 'student' ? 'students' : 'teachers', user.id);
-      await deleteDoc(userDocRef);
-
-      const auth = getAuth();
-      const userToDelete = await auth.getUser(user.id);
-      await deleteUser(userToDelete);
-
-      setUsers(users.filter((u) => u.id !== user.id));
-    } catch (error) {
-      console.error('Error deleting user:', error);
-    }
-  };
+  const users = [
+    // Example user data
+    { id: '1', name: 'John Doe', email: 'john@example.com', role: 'student', collegeName: 'College A' },
+    { id: '2', name: 'Jane Smith', email: 'jane@example.com', role: 'teacher', collegeName: 'College A' },
+    // Add more users as needed
+  ];
 
   const handleEdit = (user) => {
-    setSelectedUser(user);
+    // Handle the edit user logic here
     setOpenEditModal(true);
   };
 
-  const handleAddAdmin = async () => {
-    try {
-      const auth = getAuth();
-      const { user } = await createUserWithEmailAndPassword(auth, newAdminEmail, newAdminPassword);
+  const handleDelete = (user) => {
+    // Handle the delete user logic here
+  };
 
-      await addDoc(collection(db, 'admins'), {
-        uid: user.uid,
-        email: newAdminEmail,
-        role: 'admin',
-        collegeId: adminCollegeId,
-      });
-
-      setOpenAddAdminModal(false);
-      setNewAdminEmail('');
-      setNewAdminPassword('');
-    } catch (error) {
-      console.error('Error adding admin:', error);
-    }
+  const handleAddAdmin = () => {
+    // Handle adding a new admin here
+    setOpenAddAdminModal(false);
+    setNewAdminEmail('');
+    setNewAdminPassword('');
   };
 
   return (
@@ -145,15 +91,15 @@ const UserManagement = () => {
             fullWidth
             margin="normal"
             label="Name"
-            value={selectedUser?.name || ''}
-            onChange={(e) => setSelectedUser({ ...selectedUser, name: e.target.value })}
+            value={users[0].name}
+            onChange={(e) => console.log(e.target.value)}
           />
           <TextField
             fullWidth
             margin="normal"
             label="Email"
-            value={selectedUser?.email || ''}
-            onChange={(e) => setSelectedUser({ ...selectedUser, email: e.target.value })}
+            value={users[0].email}
+            onChange={(e) => console.log(e.target.value)}
           />
           <Button variant="contained" color="primary" onClick={() => { /* Add your update logic here */ }}>
             Save
