@@ -7,7 +7,7 @@ function CustomNavbar() {
       <Container>
         <Navbar.Brand href="/">
           <img
-            src="logo.png" // Add your logo image file path here
+            src="/assets/logo.png" // Use an absolute path from the public directory
             width="30"
             height="30"
             className="d-inline-block align-top"
@@ -22,7 +22,6 @@ function CustomNavbar() {
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/about">About</Nav.Link>
             <Nav.Link href="/contact">Contact Us</Nav.Link>
-
           </Nav>
           <Nav>
             <Button variant="outline-light" href="/login" className="me-3">Login</Button>
