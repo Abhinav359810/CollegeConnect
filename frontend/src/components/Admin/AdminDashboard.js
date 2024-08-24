@@ -14,18 +14,15 @@ const AdminDashboard = () => {
     const fetchData = async () => {
       try {
         // Fetch students and teachers counts
-        const studentsCollection = collection(db, 'students');
-        const teachersCollection = collection(db, 'teachers');
-
-        const studentsSnapshot = await getDocs(studentsCollection);
-        const teachersSnapshot = await getDocs(teachersCollection);
+        const studentsSnapshot = await getDocs(collection(db, 'students'));
+        const teachersSnapshot = await getDocs(collection(db, 'teachers'));
 
         setNumberOfStudents(studentsSnapshot.size);
         setNumberOfTeachers(teachersSnapshot.size);
 
         // Fetch pending users
         const pendingSnapshot = await getDocs(collection(db, 'Pending'));
-        const pendingData = pendingSnapshot.docs.map((doc) => ({
+        const pendingData = pendingSnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data(),
         }));
@@ -53,7 +50,7 @@ const AdminDashboard = () => {
       // Remove from the Pending collection
       await deleteDoc(doc(db, 'Pending', user.id));
 
-      setPendingUsers(pendingUsers.filter((u) => u.id !== user.id));
+      setPendingUsers(pendingUsers.filter(u => u.id !== user.id));
     } catch (error) {
       console.error('Error accepting user:', error);
     }
@@ -62,7 +59,7 @@ const AdminDashboard = () => {
   const handleReject = async (userId) => {
     try {
       await deleteDoc(doc(db, 'Pending', userId));
-      setPendingUsers(pendingUsers.filter((u) => u.id !== userId));
+      setPendingUsers(pendingUsers.filter(u => u.id !== userId));
     } catch (error) {
       console.error('Error rejecting user:', error);
     }
@@ -79,7 +76,7 @@ const AdminDashboard = () => {
           Pending Users
         </Typography>
         <Grid container spacing={3} sx={{ marginBottom: 3 }}>
-          {pendingUsers.map((user) => (
+          {pendingUsers.map(user => (
             <Grid item xs={12} key={user.id}>
               <Paper elevation={3} sx={{ padding: 2 }}>
                 <Box display="flex" alignItems="center" justifyContent="space-between">
