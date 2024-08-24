@@ -8,6 +8,7 @@ import Register from './pages/Register';
 import SignUp from './pages/SignUp';
 import SetPassword from './pages/SetPassword';
 import CustomNavbar from './components/Navbar';
+import about from './pages/About';
 
 // Student Dashboard Components
 import Sidebar from './components/Student/Sidebar';
@@ -21,6 +22,7 @@ import TeacherDashboard from './pages/Teacher/Dashboard';
 import AdminDashboard from './components/Admin/AdminDashboard';
 import Navigationbar from './components/Admin/Navbar';
 import { Nav, Navbar } from 'react-bootstrap';
+import About from './pages/About';
 
 function App() {
   return (
@@ -34,6 +36,7 @@ function App() {
         <Route path="/set-password/:id" element={<SetPassword />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/about" element={<About />} />
 
         {/* Admin Dashboard Layout */}
         <Route
