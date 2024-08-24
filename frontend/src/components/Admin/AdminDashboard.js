@@ -12,17 +12,15 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const studentsCollection = collection(db, 'students');
-        const teachersCollection = collection(db, 'teachers');
-
-        const studentsSnapshot = await getDocs(studentsCollection);
-        const teachersSnapshot = await getDocs(teachersCollection);
+        // Fetch students and teachers counts
+        const studentsSnapshot = await getDocs(collection(db, 'students'));
+        const teachersSnapshot = await getDocs(collection(db, 'teachers'));
 
         setNumberOfStudents(studentsSnapshot.size);
         setNumberOfTeachers(teachersSnapshot.size);
 
         const pendingSnapshot = await getDocs(collection(db, 'Pending'));
-        const pendingData = pendingSnapshot.docs.map((doc) => ({
+        const pendingData = pendingSnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data(),
         }));
@@ -45,7 +43,8 @@ const AdminDashboard = () => {
       await setDoc(mainCollectionRef, user);
 
       await deleteDoc(doc(db, 'Pending', user.id));
-      setPendingUsers(pendingUsers.filter((u) => u.id !== user.id));
+
+      setPendingUsers(pendingUsers.filter(u => u.id !== user.id));
     } catch (error) {
       console.error('Error accepting user:', error);
     }
@@ -54,7 +53,7 @@ const AdminDashboard = () => {
   const handleReject = async (userId) => {
     try {
       await deleteDoc(doc(db, 'Pending', userId));
-      setPendingUsers(pendingUsers.filter((u) => u.id !== userId));
+      setPendingUsers(pendingUsers.filter(u => u.id !== userId));
     } catch (error) {
       console.error('Error rejecting user:', error);
     }
@@ -66,37 +65,33 @@ const AdminDashboard = () => {
         Admin Dashboard
       </Typography>
 
-      {pendingUsers.length > 0 && (
-        <>
-          <Typography variant="h6" gutterBottom>
-            Pending Users
-          </Typography>
-          <Grid container spacing={3} sx={{ marginBottom: 2 }}>
-            {pendingUsers.map((user) => (
-              <Grid item xs={12} key={user.id}>
-                <Paper elevation={3} sx={{ padding: 1 }}>
-                  <Box display="flex" alignItems="center" justifyContent="space-between">
-                    <Box display="flex" alignItems="center" gap={4}>
-                      <Typography variant="h6">{user.name}</Typography>
-                      <Typography variant="body1">Email: {user.email}</Typography>
-                      <Typography variant="body1">Role: {user.role}</Typography>
-                      <Typography variant="body1">College: {user.collegeName}</Typography>
-                    </Box>
-                    <Box display="flex" gap={2}>
-                      <Button variant="contained" color="primary" onClick={() => handleAccept(user)}>
-                        Accept
-                      </Button>
-                      <Button variant="contained" color="secondary" onClick={() => handleReject(user.id)}>
-                        Reject
-                      </Button>
-                    </Box>
+        <Typography variant="h6" gutterBottom>
+          Pending Users
+        </Typography>
+        <Grid container spacing={3} sx={{ marginBottom: 3 }}>
+          {pendingUsers.map(user => (
+            <Grid item xs={12} key={user.id}>
+              <Paper elevation={3} sx={{ padding: 2 }}>
+                <Box display="flex" alignItems="center" justifyContent="space-between">
+                  <Box display="flex" alignItems="center" gap={4}>
+                    <Typography variant="h6">{user.name}</Typography>
+                    <Typography variant="body1">Email: {user.email}</Typography>
+                    <Typography variant="body1">Role: {user.role}</Typography>
+                    <Typography variant="body1">College: {user.collegeName}</Typography>
                   </Box>
-                </Paper>
-              </Grid>
-            ))}
-          </Grid>
-        </>
-      )}
+                  <Box display="flex" gap={2}>
+                    <Button variant="contained" color="primary" onClick={() => handleAccept(user)}>
+                      Accept
+                    </Button>
+                    <Button variant="contained" color="secondary" onClick={() => handleReject(user.id)}>
+                      Reject
+                    </Button>
+                  </Box>
+                </Box>
+              </Paper>
+            </Grid>
+          ))}
+        </Grid>
 
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6} md={4}>

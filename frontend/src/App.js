@@ -7,7 +7,6 @@ import Contact from './pages/Contact';
 import Register from './pages/Register';
 import SignUp from './pages/SignUp';
 import SetPassword from './pages/SetPassword';
-import CustomNavbar from './components/Navbar';
 import About from './pages/About';
 
 // Student Dashboard Components
@@ -19,10 +18,12 @@ import StudentList from './components/Student/StudentList';
 import TeacherDashboard from './pages/Teacher/Dashboard';
 import TeacherNavbar from './components/Teacher/Navigation'
 
-//Admin Dashboard
+// Admin Dashboard Components
 import AdminDashboard from './components/Admin/AdminDashboard';
 import AdminSidebar from './components/Admin/AdminSidebar';
 import Navigationbar from './components/Admin/Navbar';
+import AdminNotifications from './components/Admin/AdminNotifications';
+import AdminMessaging from './components/Admin/AdminMessaging';
 import UserProfile from './components/Admin/userProfiles';
 import UserManagement from './components/Admin/UserManagement';
 import { Nav, Navbar } from 'react-bootstrap';
@@ -30,17 +31,36 @@ import { Nav, Navbar } from 'react-bootstrap';
 function App() {
   return (
     <Router>
-        <Layout>
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<Homepage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/set-password/:id" element={<SetPassword />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/about" element={<About />} />
+      <Layout>
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<Homepage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/set-password/:id" element={<SetPassword />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/about" element={<About />} />
 
+          {/* Admin Dashboard Layout */}
+          <Route
+            path="/admin-dashboard/*"
+            element={
+              <div style={{ display: 'flex' }}>
+                <AdminSidebar />
+                <div style={{ flex: 1, marginLeft: '240px', padding: '20px' }}>
+                  <Navigationbar />
+                  <Routes>
+                    <Route path="/" element={<AdminDashboard />} />
+                    <Route path="students" element={<StudentList />} />
+                    <Route path="notifications" element={<AdminNotifications />} />
+                    <Route path="messaging" element={<AdminMessaging />} />
+                    {/* Add more routes for other admin functionalities */}
+                  </Routes>
+                </div>
+              </div>
+            }
+          />
         {/* Admin Dashboard Layout */}
         <Route
           path="/admin-dashboard/*"
