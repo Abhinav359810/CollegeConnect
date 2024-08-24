@@ -18,7 +18,7 @@ function CustomNavbar() {
             <Nav.Link href="/contact">Contact Us</Nav.Link>
           </Nav>
           <Nav>
-            <Button variant="outline-light" href="/login" className="me-3">Login</Button>
+            <Button variant="outline-success" href="/login" className="me-3">Login</Button>
             <Button variant="outline-success" href="/sign-up">Sign Up</Button>
           </Nav>
         </Navbar.Collapse>

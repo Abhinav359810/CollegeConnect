@@ -1,94 +1,62 @@
-<<<<<<< HEAD
 import React, { useState } from 'react';
-import { Drawer, List, ListItem, ListItemIcon, ListItemText, IconButton } from '@mui/material';
-import { Home, School, People, Assessment, Event, Notifications, Menu } from '@mui/icons-material';
+import { Drawer, List, ListItem, ListItemIcon, ListItemText, Divider, Typography, Box, IconButton } from '@mui/material';
+import { Home, School, People, Assessment, Event, Notifications, Menu as MenuIcon } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 
-const Sidebar = () => {
-  const [open, setOpen] = useState(false);
+const drawerWidth = 280;
 
-  const toggleDrawer = (open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-    setOpen(open);
+const Sidebar = () => {
+  const [open, setOpen] = useState(true);
+
+  const toggleDrawer = () => {
+    setOpen(!open);
   };
 
-  const list = () => (
-    <List>
-      <ListItem button component={Link} to="/student-dashboard/">
-        <ListItemIcon><Home /></ListItemIcon>
-        <ListItemText primary="Dashboard" />
-      </ListItem>
-      <ListItem button component={Link} to="/student-dashboard/students">
-        <ListItemIcon><People /></ListItemIcon>
-        <ListItemText primary="Students" />
-      </ListItem>
-      <ListItem button component={Link} to="/student-dashboard/faculty">
-        <ListItemIcon><School /></ListItemIcon>
-        <ListItemText primary="Faculty" />
-      </ListItem>
-      <ListItem button component={Link} to="/student-dashboard/courses">
-        <ListItemIcon><Assessment /></ListItemIcon>
-        <ListItemText primary="Courses" />
-      </ListItem>
-      <ListItem button component={Link} to="/student-dashboard/events">
-        <ListItemIcon><Event /></ListItemIcon>
-        <ListItemText primary="Events" />
-      </ListItem>
-      <ListItem button component={Link} to="/student-dashboard/notifications">
-        <ListItemIcon><Notifications /></ListItemIcon>
-        <ListItemText primary="Notifications" />
-      </ListItem>
-    </List>
-=======
-import React from 'react';
-import { List, ListItem, ListItemIcon, ListItemText, Box } from '@mui/material'; // Import Box here
-import { Home, School, People, Assessment, Event, Notifications } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
-
-const Sidebar = () => {
-  return (
-    <Box sx={{ height: '100vh', width: '250px', backgroundColor: '#f5f5f5', padding: '20px', overflowY: 'auto' }}>
-      <List>
-        <ListItem button component={Link} to="/student-dashboard/">
-          <ListItemIcon><Home /></ListItemIcon>
-          <ListItemText primary="Dashboard" />
-        </ListItem>
-        <ListItem button component={Link} to="/student-dashboard/students">
-          <ListItemIcon><People /></ListItemIcon>
-          <ListItemText primary="Students" />
-        </ListItem>
-        <ListItem button component={Link} to="/student-dashboard/faculty">
-          <ListItemIcon><School /></ListItemIcon>
-          <ListItemText primary="Faculty" />
-        </ListItem>
-        <ListItem button component={Link} to="/student-dashboard/courses">
-          <ListItemIcon><Assessment /></ListItemIcon>
-          <ListItemText primary="Courses" />
-        </ListItem>
-        <ListItem button component={Link} to="/student-dashboard/events">
-          <ListItemIcon><Event /></ListItemIcon>
-          <ListItemText primary="Events" />
-        </ListItem>
-        <ListItem button component={Link} to="/student-dashboard/notifications">
-          <ListItemIcon><Notifications /></ListItemIcon>
-          <ListItemText primary="Notifications" />
-        </ListItem>
-      </List>
-    </Box>
->>>>>>> fc3e5c285d0faa70d58cbfc8f8326372495667e0
-  );
+  const menuItems = [
+    { text: 'Dashboard', icon: <Home />, path: '/student-dashboard/' },
+    { text: 'Students', icon: <People />, path: '/student-dashboard/students' },
+    { text: 'Faculty', icon: <School />, path: '/student-dashboard/faculty' },
+    { text: 'Courses', icon: <Assessment />, path: '/student-dashboard/courses' },
+    { text: 'Events', icon: <Event />, path: '/student-dashboard/events' },
+    { text: 'Notifications', icon: <Notifications />, path: '/student-dashboard/notifications' },
+  ];
 
   return (
-    <div>
-      <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
-        <Menu />
+    <>
+      <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer} sx={{ marginLeft: '16px' }}>
+        <MenuIcon />
       </IconButton>
-      <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
-        {list()}
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+            backgroundColor: '#1e1e2d',
+            color: '#fff',
+          },
+        }}
+        variant="persistent"
+        anchor="left"
+        open={open}
+      >
+        <Box sx={{ padding: '20px', textAlign: 'center', backgroundColor: '#151521' }}>
+          <Typography variant="h5" sx={{ fontWeight: 'bold', color: '#f5f5f5' }}>
+            Student Dashboard
+          </Typography>
+        </Box>
+        <Divider />
+        <List>
+          {menuItems.map((item, index) => (
+            <ListItem button component={Link} to={item.path} key={index} sx={{ '&:hover': { backgroundColor: '#333348' } }}>
+              <ListItemIcon sx={{ color: '#fff' }}>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.text} />
+            </ListItem>
+          ))}
+        </List>
       </Drawer>
-    </div>
+    </>
   );
 };
 

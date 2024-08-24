@@ -41,12 +41,6 @@ const Dashboard = () => {
               </Paper>
             </Grid>
           </Grid>
-<<<<<<< HEAD
-
-          {/* Notifications Section */}
-         
-=======
->>>>>>> fc3e5c285d0faa70d58cbfc8f8326372495667e0
         </Box>
       </Grid>
     </Grid>
