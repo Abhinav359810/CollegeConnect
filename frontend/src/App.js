@@ -32,6 +32,7 @@ import ExamManagement from './pages/Admin/ExamManagement';
 import { Nav, Navbar } from 'react-bootstrap';
 import AdminNavbar from './components/Admin/AdminNavbar';
 import FeesManagement from './pages/Admin/FeeManagement';
+import CourseManagement from './pages/Admin/CourseManagement';
 
 function App() {
   return (
@@ -64,6 +65,7 @@ function App() {
                   <Route path="/user-management" element={<UserManagement/>} />
                   <Route path="/examination-management" element={<ExamManagement />} />
                   <Route path="/fee-payment-management" element={<FeesManagement />} />
+                  <Route path="/course-management" element={<CourseManagement />} />
                   <Route path="/user-profile/:userId/:collegeId/:role" element={<UserProfile />} /> {/* Add this route */}
                   {/* Add more routes for other admin functionalities */}
                 </Routes>

@@ -1,157 +1,177 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Grid,
-  Paper,
-  Typography,
-  Box,
-  Button,
-  IconButton,
-  Modal,
-  TextField,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
-} from '@mui/material';
-import { Add, Edit, Delete, People } from '@mui/icons-material';
-import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
+import { Grid, Paper, Typography, Button, Box } from '@mui/material';
+import { People, School } from '@mui/icons-material';
+import { collection, getDocs, doc, setDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../../firebaseConfig';
 
-const CourseManagement = () => {
-  const [courses, setCourses] = useState([]);
-  const [selectedCourse, setSelectedCourse] = useState(null);
-  const [openCourseModal, setOpenCourseModal] = useState(false);
-  const [openManageModal, setOpenManageModal] = useState(false);
+const AdminDashboard = () => {
+  const [numberOfStudents, setNumberOfStudents] = useState(0);
+  const [numberOfTeachers, setNumberOfTeachers] = useState(0);
+  const [pendingStudents, setPendingStudents] = useState([]);
+  const [pendingTeachers, setPendingTeachers] = useState([]);
 
   useEffect(() => {
-    const fetchCourses = async () => {
+    const fetchData = async () => {
       try {
-        const courseSnapshot = await getDocs(collection(db, 'courses'));
-        const courseList = courseSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setCourses(courseList);
+        // Fetch total counts for students and teachers
+        const studentsSnapshot = await getDocs(collection(db, 'students'));
+        const teachersSnapshot = await getDocs(collection(db, 'teachers'));
+
+        setNumberOfStudents(studentsSnapshot.size);
+        setNumberOfTeachers(teachersSnapshot.size);
+
+        // Fetch pending students
+        const pendingStudentsSnapshot = await getDocs(collection(db, 'Pending', 'student', 'students'));
+        const pendingStudentsData = pendingStudentsSnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setPendingStudents(pendingStudentsData);
+
+        // Fetch pending teachers
+        const pendingTeachersSnapshot = await getDocs(collection(db, 'Pending', 'teacher', 'teachers'));
+        const pendingTeachersData = pendingTeachersSnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setPendingTeachers(pendingTeachersData);
       } catch (error) {
-        console.error('Error fetching courses:', error);
+        console.error('Error fetching data:', error);
       }
     };
 
-    fetchCourses();
+    fetchData();
   }, []);
 
-  const handleAddCourse = () => {
-    setSelectedCourse(null);
-    setOpenCourseModal(true);
-  };
-
-  const handleEditCourse = (course) => {
-    setSelectedCourse(course);
-    setOpenCourseModal(true);
-  };
-
-  const handleDeleteCourse = async (courseId) => {
+  const handleAccept = async (user, role) => {
     try {
-      await deleteDoc(doc(db, 'courses', courseId));
-      setCourses(courses.filter(course => course.id !== courseId));
+      const userRole = role === 'student' ? 'students' : 'faculty';
+      const collegeRef = doc(db, 'colleges', user.collegeId, userRole, user.id);
+      const mainCollectionRef = doc(db, userRole, user.id);
+
+      // Add user to the appropriate college subcollection
+      await setDoc(collegeRef, user);
+
+      // Add user to the main students/teachers collection
+      await setDoc(mainCollectionRef, user);
+
+      // Remove from the Pending collection
+      await deleteDoc(doc(db, 'Pending', role, role === 'student' ? 'students' : 'teachers', user.id));
+
+      if (role === 'student') {
+        setPendingStudents(pendingStudents.filter(u => u.id !== user.id));
+      } else {
+        setPendingTeachers(pendingTeachers.filter(u => u.id !== user.id));
+      }
     } catch (error) {
-      console.error('Error deleting course:', error);
+      console.error('Error accepting user:', error);
     }
   };
 
-  const handleManageCourse = (course) => {
-    setSelectedCourse(course);
-    setOpenManageModal(true);
+  const handleReject = async (userId, role) => {
+    try {
+      await deleteDoc(doc(db, 'Pending', role, role === 'student' ? 'students' : 'teachers', userId));
+      if (role === 'student') {
+        setPendingStudents(pendingStudents.filter(u => u.id !== userId));
+      } else {
+        setPendingTeachers(pendingTeachers.filter(u => u.id !== userId));
+      }
+    } catch (error) {
+      console.error('Error rejecting user:', error);
+    }
   };
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box sx={{ flexGrow: 1, p: 6, ml: `${-260}px` }}> {/* Adjust the marginLeft to align with the sidebar */}
       <Typography variant="h4" gutterBottom>
-        Course Management
+        Admin Dashboard
       </Typography>
-      <Button variant="contained" color="primary" startIcon={<Add />} onClick={handleAddCourse}>
-        Add Course
-      </Button>
-      <Grid container spacing={3} sx={{ mt: 2 }}>
-        {courses.map(course => (
-          <Grid item xs={12} md={6} lg={4} key={course.id}>
-            <Paper elevation={3} sx={{ p: 2 }}>
-              <Typography variant="h6">{course.name}</Typography>
-              <Typography variant="body1">Course ID: {course.id}</Typography>
-              <Box display="flex" justifyContent="space-between" mt={2}>
-                <IconButton onClick={() => handleEditCourse(course)}><Edit /></IconButton>
-                <IconButton onClick={() => handleDeleteCourse(course.id)}><Delete /></IconButton>
-                <IconButton onClick={() => handleManageCourse(course)}><People /></IconButton>
+
+      {/* Display Pending Students */}
+      <Typography variant="h6" gutterBottom>
+        Pending Students
+      </Typography>
+      <Grid container spacing={3} sx={{ marginBottom: 3 }}>
+        {pendingStudents.map(user => (
+          <Grid item xs={12} key={user.id}>
+            <Paper elevation={3} sx={{ padding: 2 }}>
+              <Box display="flex" alignItems="center" justifyContent="space-between">
+                <Box display="flex" alignItems="center" gap={4}>
+                  <Typography variant="h6">{user.name}</Typography>
+                  <Typography variant="body1">Email: {user.email}</Typography>
+                  <Typography variant="body1">College: {user.collegeName}</Typography>
+                </Box>
+                <Box display="flex" gap={2}>
+                  <Button variant="contained" color="primary" onClick={() => handleAccept(user, 'student')}>
+                    Accept
+                  </Button>
+                  <Button variant="contained" color="secondary" onClick={() => handleReject(user.id, 'student')}>
+                    Reject
+                  </Button>
+                </Box>
               </Box>
             </Paper>
           </Grid>
         ))}
       </Grid>
 
-      {/* Add/Edit Course Modal */}
-      <Modal open={openCourseModal} onClose={() => setOpenCourseModal(false)}>
-        <Box sx={{ padding: 3, margin: 'auto', marginTop: '10%', maxWidth: 500, backgroundColor: 'white' }}>
-          <Typography variant="h6">{selectedCourse ? 'Edit Course' : 'Add Course'}</Typography>
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Course Name"
-            value={selectedCourse?.name || ''}
-            onChange={(e) => setSelectedCourse({ ...selectedCourse, name: e.target.value })}
-          />
-          <TextField
-            fullWidth
-            margin="normal"
-            label="Course Description"
-            value={selectedCourse?.description || ''}
-            onChange={(e) => setSelectedCourse({ ...selectedCourse, description: e.target.value })}
-          />
-          <Button variant="contained" color="primary" sx={{ mt: 2 }}>
-            {selectedCourse ? 'Update Course' : 'Add Course'}
-          </Button>
-        </Box>
-      </Modal>
+      {/* Display Pending Teachers */}
+      <Typography variant="h6" gutterBottom>
+        Pending Teachers
+      </Typography>
+      <Grid container spacing={3} sx={{ marginBottom: 3 }}>
+        {pendingTeachers.map(user => (
+          <Grid item xs={12} key={user.id}>
+            <Paper elevation={3} sx={{ padding: 2 }}>
+              <Box display="flex" alignItems="center" justifyContent="space-between">
+                <Box display="flex" alignItems="center" gap={4}>
+                  <Typography variant="h6">{user.name}</Typography>
+                  <Typography variant="body1">Email: {user.email}</Typography>
+                  <Typography variant="body1">College: {user.collegeName}</Typography>
+                </Box>
+                <Box display="flex" gap={2}>
+                  <Button variant="contained" color="primary" onClick={() => handleAccept(user, 'teacher')}>
+                    Accept
+                  </Button>
+                  <Button variant="contained" color="secondary" onClick={() => handleReject(user.id, 'teacher')}>
+                    Reject
+                  </Button>
+                </Box>
+              </Box>
+            </Paper>
+          </Grid>
+        ))}
+      </Grid>
 
-      {/* Manage Teachers and Students Modal */}
-      <Modal open={openManageModal} onClose={() => setOpenManageModal(false)}>
-        <Box sx={{ padding: 3, margin: 'auto', marginTop: '10%', maxWidth: 500, backgroundColor: 'white' }}>
-          <Typography variant="h6">Manage {selectedCourse?.name}</Typography>
-          <Typography variant="h6">Teachers</Typography>
-          <List>
-            {/* Replace with dynamic teacher data */}
-            <ListItem>
-              <ListItemText primary="Dr. Smith" />
-              <ListItemSecondaryAction>
-                <IconButton><Delete /></IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="Prof. Johnson" />
-              <ListItemSecondaryAction>
-                <IconButton><Delete /></IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          </List>
-          <Typography variant="h6" mt={2}>Students</Typography>
-          <List>
-            {/* Replace with dynamic student data */}
-            <ListItem>
-              <ListItemText primary="John Doe" />
-              <ListItemSecondaryAction>
-                <IconButton><Delete /></IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="Jane Doe" />
-              <ListItemSecondaryAction>
-                <IconButton><Delete /></IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          </List>
-          <Button variant="contained" color="primary" sx={{ mt: 2 }}>
-            Add Teacher/Student
-          </Button>
-        </Box>
-      </Modal>
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={6} md={4}>
+          <Paper elevation={3} sx={{ padding: 2 }}>
+            <Box display="flex" alignItems="center">
+              <People fontSize="large" sx={{ marginRight: 2, color: '#2196f3' }} />
+              <Box>
+                <Typography variant="h6">Total Students</Typography>
+                <Typography variant="h4">{numberOfStudents}</Typography>
+              </Box>
+            </Box>
+          </Paper>
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={4}>
+          <Paper elevation={3} sx={{ padding: 2 }}>
+            <Box display="flex" alignItems="center">
+              <School fontSize="large" sx={{ marginRight: 2, color: '#4caf50' }} />
+              <Box>
+                <Typography variant="h6">Total Teachers</Typography>
+                <Typography variant="h4">{numberOfTeachers}</Typography>
+              </Box>
+            </Box>
+          </Paper>
+        </Grid>
+
+        {/* Additional cards can be added here as needed */}
+      </Grid>
     </Box>
   );
 };
 
-export default CourseManagement;
+export default AdminDashboard;
