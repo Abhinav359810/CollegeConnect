@@ -30,25 +30,42 @@ function Homepage() {
       <Container className="mt-5">
         <Row>
           <Col md={8}>
-            <h2 className="section-title">Latest Announcements</h2>
-            <Card className="announcement-card mb-4">
+            <h2 className="section-title">Why Choose Us</h2>
+            <Card className="feature-card mb-4">
               <Card.Body>
-                <Card.Title>Campus Reopening</Card.Title>
+                <Card.Title>Comprehensive Resource Library</Card.Title>
                 <Card.Text>
-                  We are excited to announce that the campus will reopen on September 1st, 2024. 
-                  Please follow the health guidelines provided by the administration.
+                  Access a wide range of resources including textbooks, research papers, and study materials to support your learning journey.
                 </Card.Text>
               </Card.Body>
             </Card>
-            {/* Add more announcement cards as needed */}
+            <Card className="feature-card mb-4">
+              <Card.Body>
+                <Card.Title>Seamless Communication Tools</Card.Title>
+                <Card.Text>
+                  Stay connected with your peers and faculty through our integrated messaging and notification systems.
+                </Card.Text>
+              </Card.Body>
+            </Card>
+            <Card className="feature-card mb-4">
+              <Card.Body>
+                <Card.Title>Career Services</Card.Title>
+                <Card.Text>
+                  Get access to career counseling, job placements, and internship opportunities to jumpstart your career.
+                </Card.Text>
+              </Card.Body>
+            </Card>
+            {/* Add more feature cards as needed */}
           </Col>
           <Col md={4}>
             <h2 className="section-title">Quick Links</h2>
             <Card className="quick-links-card">
               <Card.Body>
                 <Card.Link href="/course-catalog">Course Catalog</Card.Link><br />
-                <Card.Link href="/schedules">Schedules</Card.Link><br />
-                <Card.Link href="/contact">Contact Information</Card.Link>
+                <Card.Link href="/admissions">Admissions</Card.Link><br />
+                <Card.Link href="/student-portal">Student Portal</Card.Link><br />
+                <Card.Link href="/faculty-portal">Faculty Portal</Card.Link><br />
+                <Card.Link href="/contact">Contact Us</Card.Link>
               </Card.Body>
             </Card>
           </Col>
