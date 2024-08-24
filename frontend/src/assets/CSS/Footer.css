@@ -1,12 +1,12 @@
 /* src/assets/CSS/Footer.css */
 
 .footer {
-    background-color: #343a40; /* Dark background to match the sidebar */
+    background-color: #07100b6a; /* Dark background to match the sidebar */
     color: #ffffff; /* White text color */
     padding: 20px 0; /* Padding for vertical spacing */
     text-align: center; /* Center the text */
     position: relative;
-    width: auto; /* Ensure the footer takes up the full width minus the sidebar */
+    width: auto; 
     bottom: 0; /* Stick the footer to the bottom of the page */
     z-index:1002; /* Keep the footer above other content */
   }

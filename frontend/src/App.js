@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-// import Layout from './components/Student/Layout';
+import Layout from './components/Student/Layout';
 import Homepage from './pages/Homepage';
 import Login from './pages/Login';
 import Contact from './pages/Contact';
@@ -19,12 +19,13 @@ import TeacherDashboard from './pages/Teacher/Dashboard';
 
 //Admin Dashboard
 import AdminDashboard from './components/Admin/AdminDashboard';
+import Navigationbar from './components/Admin/Navbar';
 import { Nav, Navbar } from 'react-bootstrap';
 
 function App() {
   return (
     <Router>
-        <CustomNavbar />
+        <Layout>
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Homepage />} />
@@ -40,6 +41,7 @@ function App() {
           element={
             <div style={{ display: 'flex' }}>
               <Sidebar />
+              <Navigationbar /> 
               <div style={{ marginLeft: '240px', padding: '20px', width: '100%' }}>
                 <Routes>
                   <Route path="/" element={<AdminDashboard />} />
@@ -84,6 +86,7 @@ function App() {
           }
         />
       </Routes>
+      </Layout>
     </Router>
   );
 }
