@@ -13,7 +13,7 @@ import About from './pages/About';
 import Sidebar from './components/Student/Sidebar';
 import Dashboard from './pages/Student/Dashboard';
 import StudentList from './components/Student/StudentList';
-import StudentNavbar from './components/Student/Navbar';
+import StudentNavbar from './components/Student/StudentNavbar';
 import StudentNotifications from './components/Student/StudentNotifications';
 
 // Teacher Dashboard Components
@@ -30,6 +30,7 @@ import UserManagement from './components/Admin/UserManagement';
 import ExamManagement from './pages/Admin/ExamManagement';
 import { Nav, Navbar } from 'react-bootstrap';
 import AdminNavbar from './components/Admin/AdminNavbar';
+import FeesManagement from './pages/Admin/FeeManagement';
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function App() {
                   <Route path="messaging" element={<AdminMessaging />} />
                   <Route path="/user-management" element={<UserManagement/>} />
                   <Route path="/examination-management" element={<ExamManagement />} />
+                  <Route path="/fee-payment-management" element={<FeesManagement />} />
                   <Route path="/user-profile/:userId/:collegeId/:role" element={<UserProfile />} /> {/* Add this route */}
                   {/* Add more routes for other admin functionalities */}
                 </Routes>
