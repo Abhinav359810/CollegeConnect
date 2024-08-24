@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import { Home, School, People, Assessment, Event } from '@mui/icons-material';
+import { Home, School, People, Assessment, Event, Notifications } from '@mui/icons-material';
 
 const Sidebar = () => {
   return (
@@ -25,6 +25,10 @@ const Sidebar = () => {
       <ListItem button component={Link} to="/student-dashboard/events">
         <ListItemIcon><Event /></ListItemIcon>
         <ListItemText primary="Events" />
+      </ListItem>
+      <ListItem button component={Link} to="/student-dashboard/notifications">
+        <ListItemIcon><Notifications /></ListItemIcon>
+        <ListItemText primary="Notifications" />
       </ListItem>
     </List>
   );

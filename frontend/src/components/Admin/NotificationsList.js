@@ -19,8 +19,9 @@ const NotificationsList = ({ role }) => {
       <Typography variant="h4">Notifications</Typography>
       {notifications.map((notification, index) => (
         <Paper key={index} sx={{ padding: 2, marginTop: 2 }}>
-          <Typography variant="h6">{notification.title}</Typography>
-          <Typography>{notification.message}</Typography>
+          <Typography variant="h6">{notification.text}</Typography>
+          <Typography>From: {notification.sender}</Typography> {/* Display sender */}
+          <Typography>{notification.timestamp.toDate().toLocaleString()}</Typography>
         </Paper>
       ))}
     </Container>

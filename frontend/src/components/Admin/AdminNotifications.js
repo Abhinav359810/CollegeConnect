@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { Box, Typography, TextField, Button } from '@mui/material';
+import { Box, Typography, TextField, Button, Snackbar, Alert } from '@mui/material';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { db } from '../../firebaseConfig';
 
 const AdminNotifications = () => {
   const [text, setText] = useState('');
   const [targetRole, setTargetRole] = useState('');
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState('success');
 
   const handleSend = async () => {
     try {
@@ -14,12 +17,18 @@ const AdminNotifications = () => {
         text,
         timestamp: Timestamp.now(),
         targetRole, // 'student' or 'teacher'
+        sender: 'Admin Name', // Replace with dynamic admin name if available
       });
       setText('');
       setTargetRole('');
-      alert('Notification sent successfully');
+      setSnackbarMessage('Notification sent successfully');
+      setSnackbarSeverity('success');
+      setOpenSnackbar(true);
     } catch (error) {
       console.error('Error sending notification:', error);
+      setSnackbarMessage('Error sending notification');
+      setSnackbarSeverity('error');
+      setOpenSnackbar(true);
     }
   };
 
@@ -37,15 +46,33 @@ const AdminNotifications = () => {
         onChange={(e) => setText(e.target.value)}
       />
       <TextField
-        label="Target Role (student/teacher)"
+        select
+        label="Target Role"
         fullWidth
         value={targetRole}
         onChange={(e) => setTargetRole(e.target.value)}
         sx={{ mt: 2 }}
-      />
+        SelectProps={{
+          native: true,
+        }}
+      >
+        <option value="">Select Role</option>
+        <option value="student">Student</option>
+        <option value="teacher">Teacher</option>
+      </TextField>
       <Button variant="contained" color="primary" onClick={handleSend} sx={{ mt: 2 }}>
         Send Notification
       </Button>
+
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={() => setOpenSnackbar(false)}
+      >
+        <Alert onClose={() => setOpenSnackbar(false)} severity={snackbarSeverity}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };
