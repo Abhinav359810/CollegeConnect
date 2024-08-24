@@ -3,16 +3,10 @@ import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 
 function CustomNavbar() {
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
+    <Navbar bg="alicewhite" variant="dark" expand="lg" fixed="top">
       <Container>
         <Navbar.Brand href="/">
-          <img
-            src="/assets/logo.png" // Use an absolute path from the public directory
-            width="30"
-            height="30"
-            className="d-inline-block align-top"
-            alt="CampusConnect logo"
-          />
+         
           {' '}
           CampusConnect
         </Navbar.Brand>

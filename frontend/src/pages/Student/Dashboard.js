@@ -1,13 +1,10 @@
 import React from 'react';
 import { Grid, Paper, Typography, Box } from '@mui/material';
-import Sidebar from '../../components/Student/Sidebar'; // Import Sidebar component
-
 const Dashboard = () => {
   return (
     <Grid container>
       {/* Sidebar Section */}
       <Grid item xs={12} md={3} lg={2}>
-        <Sidebar />
       </Grid>
 
       {/* Main Content Section */}
