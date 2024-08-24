@@ -85,7 +85,7 @@ const UserManagement = () => {
 
       {/* Edit Modal */}
       <Modal open={openEditModal} onClose={() => setOpenEditModal(false)}>
-        <Box sx={{ padding: 3, margin: 'auto', marginTop: '10%', maxWidth: 500, backgroundColor: 'white' }}>
+        <Box sx={{ padding: 10, margin: 'auto', marginTop: '10%', maxWidth: 500, backgroundColor: 'white' }}>
           <Typography variant="h6">Edit User</Typography>
           <TextField
             fullWidth

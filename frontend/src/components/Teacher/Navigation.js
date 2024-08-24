@@ -26,7 +26,7 @@ const TeacherNavbar = ({ toggleSidebar }) => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" noWrap component="div">
-          Admin Dashboard
+          Teacher Dashboard
         </Typography>
         <Box sx={{ flexGrow: 1 }} />
         <Box>
