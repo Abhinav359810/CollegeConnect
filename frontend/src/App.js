@@ -43,12 +43,13 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/about" element={<About />} />
 
-          
+
         {/* Admin Dashboard Layout */}
         <Route
           path="/admin-dashboard/*"
           element={
             <div style={{ display: 'flex' }}>
+              <AdminSidebar />
               <Navigationbar /> 
               <div style={{ marginLeft: '240px', padding: '20px', width: '100%' }}>
                 <Routes>
