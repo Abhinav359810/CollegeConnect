@@ -4,12 +4,13 @@ import { Form, Button, Container, Row, Col, Card } from 'react-bootstrap';
 import { db } from '../firebaseConfig';
 import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import illustration from '../assets/img/illustration.jpg'; // Add your illustration image here
 
 function Register() {
   const [collegeName, setCollegeName] = useState('');
   const [adminName, setAdminName] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState(''); // Add password state
+  const [password, setPassword] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
   const [address, setAddress] = useState('');
   const [message, setMessage] = useState('');
@@ -19,7 +20,6 @@ function Register() {
     e.preventDefault();
 
     try {
-      // Query Firestore to check if the college name already exists
       const q = query(collection(db, 'colleges'), where('collegeName', '==', collegeName));
       const querySnapshot = await getDocs(q);
 
@@ -28,7 +28,6 @@ function Register() {
         return;
       }
 
-      // If college name does not exist, proceed to add the new college document
       const collegeDocRef = await addDoc(collection(db, 'colleges'), {
         collegeName,
         adminName,
@@ -37,22 +36,18 @@ function Register() {
         address,
       });
 
-      // Create user in Firebase Authentication
       const auth = getAuth();
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Update the user's display name in Firebase Authentication
       await updateProfile(user, { displayName: adminName });
 
-      // Add the admin to the faculty collection associated with the college
       await addDoc(collection(db, 'colleges', collegeDocRef.id, 'faculty'), {
         name: adminName,
         email,
-        role: 'admin',  // Assign the admin role to this user
+        role: 'admin',
       });
 
-      // Pass the document ID to the next page or show a success message
       navigate(`/set-password/${collegeDocRef.id}`, { state: { email } });
     } catch (error) {
       setMessage(`Error: ${error.message}`);
@@ -60,10 +55,11 @@ function Register() {
   };
 
   return (
-    <Container className="mt-5">
-      <Row className="justify-content-center">
-        <Col md={8}>
-          <Card className="shadow-lg">
+    <Container style={{ marginTop: '5%', minHeight: '100vh' }}>
+      <Row style={{ display: 'flex', alignItems: 'center' }}>
+        {/* Left Section with Form */}
+        <Col md={6} style={{ padding: '20px' }}>
+          <Card className="shadow-lg" style={{ borderRadius: '15px' }}>
             <Card.Body>
               <h3 className="text-center mb-4">Register Your College</h3>
               {message && <p className="text-center text-info">{message}</p>}
@@ -134,12 +130,36 @@ function Register() {
                   />
                 </Form.Group>
 
-                <Button variant="success" type="submit" block className="rounded-pill">
-                  Next
+                <Button
+                  variant="success"
+                  type="submit"
+                  block
+                  style={{
+                    width: '100%',
+                    borderRadius: '30px',
+                    padding: '10px',
+                    fontSize: '18px',
+                    backgroundColor: '#28a745',
+                    border: 'none',
+                    transition: 'background-color 0.3s ease',
+                  }}
+                  onMouseOver={(e) => (e.target.style.backgroundColor = '#218838')}
+                  onMouseOut={(e) => (e.target.style.backgroundColor = '#28a745')}
+                >
+                  Register
                 </Button>
               </Form>
             </Card.Body>
           </Card>
+        </Col>
+
+        {/* Right Section with Illustration */}
+        <Col md={6} style={{ textAlign: 'center' }}>
+          <img
+            src={illustration}
+            alt="Illustration"
+            style={{ width: '80%', height: 'auto', margin: '0 auto' }}
+          />
         </Col>
       </Row>
     </Container>
