@@ -3,6 +3,7 @@ import React from 'react';
 import { Grid, Paper, Typography, Box } from '@mui/material';
 import Sidebar from '../../components/Student/Sidebar'; // Import the Sidebar component
 import StudentNavbar from '../../components/Student/StudentNavbar'; // Import the Navbar component
+import SubmitQuestion from '../../components/Student/SubmitQuestion'; // Import the SubmitQuestion component
 
 const Dashboard = () => {
   return (
@@ -42,6 +43,11 @@ const Dashboard = () => {
               </Paper>
             </Grid>
           </Grid>
+
+          {/* Question Submission Section */}
+          <Box sx={{ mt: 4 }}>
+            <SubmitQuestion /> {/* Include the SubmitQuestion component */}
+          </Box>
         </Box>
       </Box>
     </Box>

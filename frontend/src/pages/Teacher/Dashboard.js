@@ -1,11 +1,16 @@
-// src/pages/Teacher/Dashboard.js
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Typography, Paper } from '@mui/material';
 import Navigation from '../../components/Teacher/Navigation.js';
 import TeacherNotifications from '../../components/Teacher/TeacherNotifications';
 import Sidebar from '../../components/Teacher/Sidebar'; // Import the Sidebar component
+import QuestionList from '../../components/Teacher/QuestionList'; // Import QuestionList component
+import AnswerSection from '../../components/Teacher/AnswerSection'; // Import AnswerSection component
+import TaggingSystem from '../../components/Teacher/TaggingSystem'; // Import TaggingSystem component
+import SearchFunctionality from '../../components/Teacher/SearchFunctionality'; // Import SearchFunctionality component
 
 function TeacherDashboard() {
+  const [selectedQuestion, setSelectedQuestion] = useState(null);
+
   return (
     <Box sx={{ display: 'flex', height: '100vh' }}>
       <Sidebar /> {/* Include the Sidebar component */}
@@ -63,6 +68,19 @@ function TeacherDashboard() {
                 <Typography variant="body1">Create and manage group projects.</Typography>
               </Paper>
             </Box>
+          </section>
+
+          {/* Q&A Forum Section */}
+          <section style={{ marginBottom: '20px' }}>
+            <Typography variant="h6" gutterBottom>Q&A Forum</Typography>
+            <SearchFunctionality onSelectQuestion={setSelectedQuestion} />
+            <QuestionList onSelectQuestion={setSelectedQuestion} />
+            {selectedQuestion && (
+              <>
+                <AnswerSection selectedQuestion={selectedQuestion} />
+                <TaggingSystem selectedQuestion={selectedQuestion} />
+              </>
+            )}
           </section>
 
           {/* Notifications Section */}
