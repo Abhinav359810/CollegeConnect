@@ -13,7 +13,7 @@ import About from './pages/About';
 import Sidebar from './components/Student/Sidebar';
 import Dashboard from './pages/Student/Dashboard';
 import StudentList from './components/Student/StudentList';
-import StudentNavbar from './components/Student/Navbar';
+import StudentNavbar from './components/Student/StudentNavbar';
 import StudentNotifications from './components/Student/StudentNotifications';
 
 // Teacher Dashboard Components
