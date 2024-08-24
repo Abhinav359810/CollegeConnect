@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
-const AdminSidebar = () => {
+const AdminSidebar = ({ open, toggleSidebar }) => {
   return (
     <Drawer
       variant="permanent"

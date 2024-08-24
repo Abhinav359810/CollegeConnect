@@ -1,42 +1,54 @@
-// src/components/Teacher/Navigation.js
-
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-//import './Navigation.css'; // Optional: Add custom CSS styling
+import { AppBar, Toolbar, IconButton, Typography, Box, Menu, MenuItem, Avatar, Tooltip } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 
-function Navigation() {
+const TeacherNavbar = ({ toggleSidebar }) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
-    <nav className="teacher-navigation">
-      <ul className="nav-list">
-        <li>
-          <NavLink to="/teacher-dashboard/home" activeClassName="active-link" className="nav-link">
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/teacher-dashboard/classes" activeClassName="active-link" className="nav-link">
-            Classes
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/teacher-dashboard/assignments" activeClassName="active-link" className="nav-link">
-            Assignments
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/teacher-dashboard/students" activeClassName="active-link" className="nav-link">
-            Students
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/teacher-dashboard/grades" activeClassName="active-link" className="nav-link">
-            Grades
-          </NavLink>
-        </li>
-        {/* Add more navigation links as needed */}
-      </ul>
-    </nav>
+    <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+      <Toolbar>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          edge="start"
+          onClick={toggleSidebar}
+          sx={{ marginRight: '36px' }}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography variant="h6" noWrap component="div">
+          Admin Dashboard
+        </Typography>
+        <Box sx={{ flexGrow: 1 }} />
+        <Box>
+          <Tooltip title="Account settings">
+            <IconButton onClick={handleMenuOpen} sx={{ p: 0 }}>
+              <Avatar alt="Admin" src="/static/images/avatar/1.jpg" />
+            </IconButton>
+          </Tooltip>
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+            sx={{ mt: '45px' }}
+          >
+            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+            <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
+            <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+          </Menu>
+        </Box>
+      </Toolbar>
+    </AppBar>
   );
-}
+};
 
-export default Navigation;
+export default TeacherNavbar;

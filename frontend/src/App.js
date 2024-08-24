@@ -17,11 +17,14 @@ import StudentList from './components/Student/StudentList';
 
 // Teacher Dashboard Components
 import TeacherDashboard from './pages/Teacher/Dashboard';
+import TeacherNavbar from './components/Teacher/Navigation'
 
 //Admin Dashboard
 import AdminDashboard from './components/Admin/AdminDashboard';
 import AdminSidebar from './components/Admin/AdminSidebar';
 import Navigationbar from './components/Admin/Navbar';
+import UserProfile from './components/Admin/userProfiles';
+import UserManagement from './components/Admin/UserManagement';
 import { Nav, Navbar } from 'react-bootstrap';
 
 function App() {
@@ -48,7 +51,9 @@ function App() {
               <div style={{ marginLeft: '240px', padding: '20px', width: '100%' }}>
                 <Routes>
                   <Route path="/" element={<AdminDashboard />} />
-                  <Route path="students" element={<StudentList />} />
+                  <Route path="/students" element={<StudentList />} />
+                  <Route path="/user-management" element={<UserManagement/>} />
+                  <Route path="/user-profile/:userId/:collegeId/:role" element={<UserProfile />} /> {/* Add this route */}
                   {/* Add more routes for other admin functionalities */}
                 </Routes>
               </div>
@@ -61,6 +66,7 @@ function App() {
           path="/teacher-dashboard/*"
           element={
             <div className="dashboard">
+              <TeacherNavbar />
               <Sidebar />
               <div className="dashboard-content">
                 <Routes>
@@ -78,6 +84,7 @@ function App() {
           element={
             <div className="dashboard">
               <Sidebar />
+              <Navigationbar/>
               <div className="dashboard-content">
                 <Routes>
                   <Route path="/" element={<Dashboard />} />
