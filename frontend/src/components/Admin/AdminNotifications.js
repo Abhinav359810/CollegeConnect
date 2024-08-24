@@ -33,7 +33,7 @@ const AdminNotifications = () => {
   };
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box sx={{ p: 7 }}>
       <Typography variant="h4" gutterBottom>
         Send Notification
       </Typography>
